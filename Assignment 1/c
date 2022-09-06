@@ -1,0 +1,15 @@
+#!/bin/bash
+#simple bash script for compiling java files into class files
+
+if [ ! -d "dist" ]
+then
+  # dist folder does not exist, create.
+  mkdir dist
+  echo Created dist directory
+fi
+
+#compiles all .java files within src/ into class files within dist/
+java --version
+echo Starting Java compile...
+javac -d dist/ src/*.java
+echo Compilation complete
