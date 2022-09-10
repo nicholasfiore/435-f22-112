@@ -10,7 +10,7 @@ public class Node {
     //No-arg (default) constructor for creating a default Node object
     public Node() {}
 
-    //Partial constructor for just initializing the Item within the Node
+    //Partial constructor for initializing only the Item within the Node
     public Node(String item) {
         myItem = item;
     }
@@ -43,5 +43,5 @@ public class Node {
     }
 
     /* Functions */
-    
+
 }
