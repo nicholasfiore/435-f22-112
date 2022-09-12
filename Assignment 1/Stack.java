@@ -31,4 +31,13 @@ public class Stack {
         this.setMyHead(val.getMyNext());
         return val;
     }
+
+    //checks to see if a stack is empty
+    public boolean isEmpty() {
+        if (myHead == null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
