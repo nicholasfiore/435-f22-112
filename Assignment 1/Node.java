@@ -1,9 +1,9 @@
 /*
- * The Node class is used to created linked lists of objects in order to more variably 
+ * The Node class is used to created linked lists of objects in order to more variably control the size of said list without being locked into an array
  */
 public class Node {
     /* Data Fields */
-    private String myItem = "";
+    private char myChar = ' ';
     private Node myNext = null;
 
     /* Constructors */
@@ -11,20 +11,20 @@ public class Node {
     public Node() {}
 
     //Partial constructor for initializing only the Item within the Node
-    public Node(String item) {
-        myItem = item;
+    public Node(char character) {
+        myChar = character;
     }
 
-    //Full constuctor for creating a Node object and assigning an item name and next Node object pointer
-    public Node(String item, Node next) {
-        myItem = item;
+    //Full constuctor for creating a Node object and assigning an character name and next Node object pointer
+    public Node(char character, Node next) {
+        myChar = character;
         myNext = next;
     }
 
     /* Accessors and Mutators */
-    //Returns the item String of the Node object
-    public String getMyItem() {
-        return myItem;
+    //Returns the character String of the Node object
+    public char getMyItem() {
+        return myChar;
     }
 
     //Returns the pointer for the next Node object in the list
@@ -32,16 +32,14 @@ public class Node {
         return myNext;
     }
 
-    //Changes the value of the item String of a Node object to a new String
-    public void setMyItem(String myItem) {
-        this.myItem = myItem;
+    //Changes the value of the character String of a Node object to a new String
+    public void setMyItem(char myChar) {
+        this.myChar = myChar;
     }
 
     //Changes the pointer of the next pointer of a Node object to a new pointer to a node Object (or NULL)
     public void setMyNext(Node myNext) {
         this.myNext = myNext;
     }
-
-    /* Functions */
 
 }
