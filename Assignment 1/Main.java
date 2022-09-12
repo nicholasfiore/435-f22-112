@@ -5,6 +5,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
+/* 
+ * The purpose of this program is to take in a file with items, words, phrases, etc. each on separate lines and use various data structures such as linked lists, stacks,
+ * and queues, in order to tell if said item/word/phrase is a palindrome (ignoring spaces).
+ */
+
 public class Main {
     public static void main(String[] args) {
         /* creates a Scanner object for the input stream (keyboard), prompts the user for the filename/path and stores that into a variable, and then closes the scanner */
@@ -29,6 +34,7 @@ public class Main {
             totLines = Files.lines(path).count();
             System.out.println("Total lines: " + totLines);
 
+            //initializes the size of the array with the total lines in the .txt
             itemList = new String[(int)totLines];
 
             for (int i = 0; i < totLines; i ++) {
