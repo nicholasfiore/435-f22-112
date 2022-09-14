@@ -25,7 +25,7 @@ public class Stack {
     /* Functions */
     //adds a new Node object to the Stack
     public void push(Node newNode) {
-        newNode.setMyNext(getMyHead());
+        newNode.setMyNext(this.getMyHead());
         this.setMyHead(newNode);
     }
 
