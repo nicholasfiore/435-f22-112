@@ -6,6 +6,10 @@
 public class Stack {
     /* Data fields */
     private Node myHead = null;
+
+    /* Constructor */
+    //empty default constructor
+    public Stack() {}
     
     /* Accessor and Mutator*/
     //Returns the pointer of myHead
