@@ -22,8 +22,10 @@ public class Main {
         File file = new File(fileName);
         //long variable to store the total lines of a .txt
         long totLines;
-        //array to hold all the
+        //array to hold all the items in the list
         String[] itemList;
+
+        
         /* This try-catch block is for reading in a .txt file, putting each line onto an array, and throwing exceptions if there are any. */
         try {
             //Scanner object for scanning the file
@@ -32,7 +34,7 @@ public class Main {
             
             //grabs the amount of lines within the .txt file and prints it
             totLines = Files.lines(path).count();
-            System.out.println("Total lines: " + totLines);
+            System.out.println("Total lines: " + totLines + "\n");
 
             //initializes the size of the array with the total lines in the .txt
             itemList = new String[(int)totLines];
@@ -40,21 +42,46 @@ public class Main {
             for (int i = 0; i < totLines; i ++) {
                 itemList[i] = fileScanner.nextLine();
             }
-
-            System.out.println(itemList.length);
-            System.out.println(itemList[0]);
-            System.out.println(itemList[665]);
             
             //closes the scanner after use to save resources
             fileScanner.close();
+
+
+            /* 
+            * This is the main section of the program 
+            */
+            Queue itemQueue = new Queue();
+            Stack itemStack = new Stack();
+            int counter = 0;
+
+            for (int i = 0; i < totLines; i++) {
+                boolean flag = true;
+                String tempStr = itemList[i].replaceAll("\\s", "").toUpperCase();
+                
+                //pushes each character sequentially into a stack and a queue
+                for (int j = 0; j < tempStr.length(); j++) {
+                    itemQueue.enqueue(new Node(tempStr.charAt(j)));
+                    itemStack.push(new Node(tempStr.charAt(j)));
+                }
+
+                for (int j = 0; j < tempStr.length(); j++) {
+                    if (itemQueue.dequeue().getMyChar() != itemStack.pop().getMyChar())
+                        flag = false;
+                }
+
+                if (flag) {
+                    System.out.println(itemList[i]);
+                    counter++;
+                }
+            }
+            System.out.println("\nTotal palindromes: " + counter);
         } catch(FileNotFoundException ex) {
 			System.out.println("Failed to find file: " + file.getAbsolutePath());
         } catch(Exception ex) {
             System.out.println("Something went wrong.");
             System.out.println(ex.getMessage());
         }
-
-
+        
 
     }
 }

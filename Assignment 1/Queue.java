@@ -10,7 +10,7 @@ public class Queue {
 
     /* Constructors */
     //Empty default constructor
-    public Queue() {}
+    public Queue() { /* Default Constuctor */ }
 
     /* Accessors and Mutators */
     //returns the pointer value of myHead

@@ -23,7 +23,7 @@ public class Node {
 
     /* Accessors and Mutators */
     //Returns the character String of the Node object
-    public char getMyItem() {
+    public char getMyChar() {
         return myChar;
     }
 
@@ -33,7 +33,7 @@ public class Node {
     }
 
     //Changes the value of the character String of a Node object to a new String
-    public void setMyItem(char myChar) {
+    public void setMyChar(char myChar) {
         this.myChar = myChar;
     }
 
