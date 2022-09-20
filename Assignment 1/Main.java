@@ -48,15 +48,21 @@ public class Main {
 
 
             /* 
-            * This is the main section of the program 
+            * This is the main section of the program. It performs all the operations necessary to find the palindromes in a .txt list,
+            * including initializing a Stack and Queue object, adding the characters from each word into the Stack and Queue by putting
+            * them into Node objects and pushing and enqueuing them, then popping and dequeuing them to compare the letters.
             */
             Queue itemQueue = new Queue();
             Stack itemStack = new Stack();
+            //counts how many palindrones are in the list
             int counter = 0;
+            boolean flag;
+            String
 
             for (int i = 0; i < totLines; i++) {
-                boolean flag = true;
-                String tempStr = itemList[i].replaceAll("\\s", "").toUpperCase();
+                //resets flag to true (a word is considered a palindrome until it is proven not)
+                flag = true;
+                tempStr = itemList[i].replaceAll("\\s", "").toUpperCase();
                 
                 //pushes each character sequentially into a stack and a queue
                 for (int j = 0; j < tempStr.length(); j++) {
@@ -64,11 +70,15 @@ public class Main {
                     itemStack.push(new Node(tempStr.charAt(j)));
                 }
 
+                //sequentially pops each Node from the stack and dequeues each node from the queue together. If at any point the character
+                //in the Node object of the popped object does not match the character in the Node that was dequeued, flag is set to false
+                //as the word cannot be a palindrome in that case.
                 for (int j = 0; j < tempStr.length(); j++) {
                     if (itemQueue.dequeue().getMyChar() != itemStack.pop().getMyChar())
                         flag = false;
                 }
 
+                //if the flag is set to true still, the word is a palindrome and is printed, and the counter is incremented
                 if (flag) {
                     System.out.println(itemList[i]);
                     counter++;
