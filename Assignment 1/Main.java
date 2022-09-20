@@ -57,7 +57,7 @@ public class Main {
             //counts how many palindrones are in the list
             int counter = 0;
             boolean flag;
-            String
+            String tempStr = "";
 
             for (int i = 0; i < totLines; i++) {
                 //resets flag to true (a word is considered a palindrome until it is proven not)
