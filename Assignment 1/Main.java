@@ -56,9 +56,12 @@ public class Main {
             Stack itemStack = new Stack();
             //counts how many palindrones are in the list
             int counter = 0;
+            //flag that is dependent on whether or not an item is a palindrome
             boolean flag;
+            //temporary String object to store the String in the array and remove spaces/convert to uppercase
             String tempStr = "";
 
+            //for loop goes through every line within the file
             for (int i = 0; i < totLines; i++) {
                 //resets flag to true (a word is considered a palindrome until it is proven not)
                 flag = true;
@@ -91,7 +94,5 @@ public class Main {
             System.out.println("Something went wrong.");
             System.out.println(ex.getMessage());
         }
-        
-
     }
 }
