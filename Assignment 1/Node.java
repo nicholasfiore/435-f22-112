@@ -42,4 +42,14 @@ public class Node {
         this.myNext = myNext;
     }
 
+    /* Functions */
+    //Checks to see if the Node object has a myNext value != null. Returns boolean depending on result.
+    public boolean hasNext() {
+        if (this.getMyNext() != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
