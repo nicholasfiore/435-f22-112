@@ -38,12 +38,24 @@ public class Main {
             //initializes the size of the array with the total lines in the .txt
             itemList = new String[(int)totLines];
 
+            
             for (int i = 0; i < totLines; i ++) {
                 itemList[i] = fileScanner.nextLine();
             }
             
             //closes the scanner after use to save resources
             fileScanner.close();
+
+
+            /*
+             * 
+             */
+            Sort.shuffle(itemList);
+            for (int i = 0; i < itemList.length; i++) {
+                System.out.println(itemList[i]);
+            }
+            
+            
         } catch(FileNotFoundException ex) {
 			System.out.println("Failed to find file: " + file.getAbsolutePath());
         } catch(Exception ex) {
