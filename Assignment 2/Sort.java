@@ -17,7 +17,10 @@ public class Sort {
         } 
     }
 
-    public static int selectionSort(String[] arr) {
+    public static void selectionSort(String[] arr) {
+        //these two are used for determining the amount of time elapsed during the method execution
+        long start = System.nanoTime();
+        long end;
         //a counter to be used for counting each comparison within the sort.
         int compCounter = 0;
         String temp = "";
@@ -33,6 +36,10 @@ public class Sort {
                 compCounter++;
             }
         }
-        return compCounter;
+        end = (System.nanoTime());
+
+        System.out.println("Selection sort");
+        System.out.println("Number of comparisons: " + compCounter);
+        System.out.println("This took: " + ((end - start) / 1000) + "µs");
     }
 }
