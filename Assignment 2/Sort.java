@@ -81,4 +81,25 @@ public class Sort {
         System.out.printf("%,7d", ((end - start) / 1000));
         System.out.println(" µs\n");
     }
+    
+    //A seperate algorithm that takes in two subarrays and combines them while sorting them. This method is used recursively in mergeSort()
+    //in order to divide and conquer
+    private static void merge(String[] arr, int first, int middle, int last) {
+        
+    }
+
+    public static void mergeSort(String[] arr, int first, int last) {
+        if (first > last) {
+            int middle = first + (last - first) / 2;
+
+            //the new subarrays to be sorted recursively
+            mergeSort(arr, first, middle);
+            mergeSort(arr, middle + 1, last);
+            //merges the arrays back together while sorting them
+            merge(arr, first, middle, last);
+        }
+    }
+
+    
 }
+
