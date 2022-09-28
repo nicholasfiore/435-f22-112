@@ -52,10 +52,13 @@ public class Main {
              */
             Sort.shuffle(itemList);
             Sort.selectionSort(itemList);
-            for (int i = 0; i < itemList.length; i++) {
-                System.out.println(itemList[i]);
-            }
             
+            Sort.shuffle(itemList);
+            Sort.insertionSort(itemList);
+            
+            // for (int i = 0; i < itemList.length; i++) {
+            //     System.out.println(itemList[i]);
+            // }
             
         } catch(FileNotFoundException ex) {
 			System.out.println("Failed to find file: " + file.getAbsolutePath());
