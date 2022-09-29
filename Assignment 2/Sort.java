@@ -85,7 +85,17 @@ public class Sort {
     //A seperate algorithm that takes in two subarrays and combines them while sorting them. This method is used recursively in mergeSort()
     //in order to divide and conquer
     private static void merge(String[] arr, int first, int middle, int last) {
-        
+        //creates temporary arrays as copies of the sub arrays within the passed array
+        int[] arrLeft = new int[middle - (first + 1)];
+        int[] arrRight = new int[last - middle];
+
+        //initializes the copy arrays
+        for (int i = 0; i < arrLeft.length; i++) {
+            arrLeft[i] = arrLeft[first + i];
+        }
+        for (int i = 0; i < arrRight.length; i++) {
+            arrRight[i] = arrRight[middle + 1 + i];
+        }
     }
 
     public static void mergeSort(String[] arr, int first, int last) {
