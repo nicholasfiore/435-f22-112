@@ -96,6 +96,8 @@ public class Sort {
         for (int i = 0; i < arrRight.length; i++) {
             arrRight[i] = arrRight[middle + 1 + i];
         }
+
+        
     }
 
     public static void mergeSort(String[] arr, int first, int last) {
