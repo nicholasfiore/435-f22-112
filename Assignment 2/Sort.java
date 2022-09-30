@@ -109,7 +109,7 @@ public class Sort {
         //Goes through both sub arrays, and places the earlier word/phrase in the original array at that position, until
         //one of subarrays reaches the end
         while (i < leftSize && j < rightSize) {
-            if (arrLeft[i].compareTo(arrRight[j]) <= 0) {
+            if ((arrLeft[i].toUpperCase()).compareTo(arrRight[j].toUpperCase()) <= 0) {
                 arr[k] = arrLeft[i];
                 i++;
             } else {
@@ -145,7 +145,6 @@ public class Sort {
             mergeSort(arr, middle + 1, last);
             //merges the arrays back together while sorting them
             merge(arr, first, middle, last);
-            compCounter++;
         }
 
 
