@@ -55,6 +55,20 @@ public class Main {
             
             Sort.shuffle(itemList);
             Sort.insertionSort(itemList);
+
+            int mergeCount = 0;
+            Sort.shuffle(itemList);
+            long mergeStart = System.nanoTime();
+            Sort.mergeSort(itemList, 0, (itemList.length-1));
+            long mergeEnd = System.nanoTime();
+            //Print statements including formatting for mergeSort()
+            System.out.println("\033[1mMerge Sort\033[0m");
+            System.out.print("Number of comparisons: ");
+            System.out.printf("%,5d %n", mergeCount);
+            System.out.printf("%-21s", "Time elapsed");
+            System.out.print(": ");
+            System.out.printf("%,5d", ((mergeEnd - mergeStart) / 1000));
+            System.out.println(" µs\n");
             
             // for (int i = 0; i < itemList.length; i++) {
             //     System.out.println(itemList[i]);

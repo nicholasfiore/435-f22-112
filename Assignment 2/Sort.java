@@ -85,9 +85,13 @@ public class Sort {
     //A seperate algorithm that takes in two subarrays and combines them while sorting them. This method is used recursively in mergeSort()
     //in order to divide and conquer
     private static void merge(String[] arr, int first, int middle, int last) {
+        //variables to store the size of both subarrays
+        int leftSize = middle - (first + 1);
+        int rightSize = last - middle;
+
         //creates temporary arrays as copies of the sub arrays within the passed array
-        int[] arrLeft = new int[middle - (first + 1)];
-        int[] arrRight = new int[last - middle];
+        String[] arrLeft = new String[leftSize];
+        String[] arrRight = new String[rightSize];
 
         //initializes the copy arrays
         for (int i = 0; i < arrLeft.length; i++) {
@@ -97,10 +101,42 @@ public class Sort {
             arrRight[i] = arrRight[middle + 1 + i];
         }
 
-        
+        //variables to store the positions in the subarrays and original array
+        int i = 0;
+        int j = 0;
+        int k = first;
+
+        //Goes through both sub arrays, and places the earlier word/phrase in the original array at that position, until
+        //one of subarrays reaches the end
+        while (i < leftSize && j < rightSize) {
+            if (arrLeft[i].compareTo(arrRight[j]) <= 0) {
+                arr[k] = arrLeft[i];
+                i++;
+            } else {
+                arr[k] = arrRight[j];
+                j++;
+            }
+            k++;
+        }
+
+        //puts any remaining elements into the original array
+        while (i < leftSize) {
+            arr[k] = arrLeft[i];
+            i++;
+            k++;
+        }
+
+        while (j < rightSize) {
+            arr[k] = arrRight[j];
+            j++;
+            k++;
+        }
     }
 
     public static void mergeSort(String[] arr, int first, int last) {
+        int compCounter = 0;
+        long start = System.nanoTime();
+        long end;
         if (first > last) {
             int middle = first + (last - first) / 2;
 
@@ -109,7 +145,12 @@ public class Sort {
             mergeSort(arr, middle + 1, last);
             //merges the arrays back together while sorting them
             merge(arr, first, middle, last);
+            compCounter++;
         }
+
+
+        
+        
     }
 
     
