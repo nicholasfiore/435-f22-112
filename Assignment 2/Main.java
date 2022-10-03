@@ -11,13 +11,8 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        /* creates a Scanner object for the input stream (keyboard), prompts the user for the filename/path and stores that into a variable, and then closes the scanner */
-        Scanner keyboard = new Scanner(System.in);
-        System.out.print("Enter the filename or path: ");
-        String fileName = keyboard.nextLine();
-        keyboard.close();
-
-        //creates a new file object for the magicitems.txt file or other .txt file
+        //creates a new file object for the magicitems.txt file
+        String fileName = "magicitems.txt";
         File file = new File(fileName);
         //long variable to store the total lines of a .txt
         long totLines;
