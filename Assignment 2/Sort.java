@@ -138,9 +138,6 @@ public class Sort {
     }
 
     public static void mergeSort(String[] arr, int first, int last) {
-        int compCounter = 0;
-        long start = System.nanoTime();
-        long end;
         if (first > last) {
             int middle = first + (last - first) / 2;
 
