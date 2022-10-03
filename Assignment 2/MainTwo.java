@@ -9,7 +9,7 @@ import java.util.Scanner;
  * The purpose of this program is TODO
  */
 
-public class Main {
+public class MainTwo {
     public static void main(String[] args) {
         //creates a new file object for the magicitems.txt file
         String fileName = "magicitems.txt";
@@ -51,7 +51,6 @@ public class Main {
             Sort.shuffle(itemList);
             Sort.insertionSort(itemList);
 
-            int mergeCount = 0;
             Sort.shuffle(itemList);
             long mergeStart = System.nanoTime();
             Sort.mergeSort(itemList, 0, (itemList.length-1));
@@ -59,7 +58,7 @@ public class Main {
             //Print statements including formatting for mergeSort()
             System.out.println("\033[1mMerge Sort\033[0m");
             System.out.print("Number of comparisons: ");
-            System.out.printf("%,5d %n", mergeCount);
+            System.out.printf("%,5d %n", Sort.mergeCount);
             System.out.printf("%-21s", "Time elapsed");
             System.out.print(": ");
             System.out.printf("%,5d", ((mergeEnd - mergeStart) / 1000));

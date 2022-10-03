@@ -5,6 +5,10 @@ import java.lang.Math;
  */
 
 public class Sort {
+    //global variables for counters
+    static int mergeCount = 0;
+
+
     //a method for shuffling an array based on the Knuth shuffle
     public static void shuffle(String[] arr) {
         String temp = "";
