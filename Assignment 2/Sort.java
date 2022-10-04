@@ -88,10 +88,10 @@ public class Sort {
     
     //A seperate algorithm that takes in two subarrays and combines them while sorting them. This method is used recursively in mergeSort()
     //in order to divide and conquer
-    private static void merge(String[] arr, int first, int middle, int last) {
+    private static void merge(String[] arr, int firstIndex, int midIndex, int lastIndex) {
         //variables to store the size of both subarrays
-        int leftSize = middle - (first + 1);
-        int rightSize = last - middle;
+        int leftSize = midIndex - (firstIndex + 1);
+        int rightSize = lastIndex - midIndex;
 
         //creates temporary arrays as copies of the sub arrays within the passed array
         String[] arrLeft = new String[leftSize];
@@ -99,16 +99,16 @@ public class Sort {
 
         //initializes the copy arrays
         for (int i = 0; i < arrLeft.length; i++) {
-            arrLeft[i] = arrLeft[first + i];
+            arrLeft[i] = arrLeft[firstIndex + i];
         }
         for (int i = 0; i < arrRight.length; i++) {
-            arrRight[i] = arrRight[middle + 1 + i];
+            arrRight[i] = arrRight[midIndex + 1 + i];
         }
 
         //variables to store the positions in the subarrays and original array
         int i = 0;
         int j = 0;
-        int k = first;
+        int k = firstIndex;
 
         //Goes through both sub arrays, and places the earlier word/phrase in the original array at that position, until
         //one of subarrays reaches the end
@@ -137,15 +137,15 @@ public class Sort {
         }
     }
 
-    public static void mergeSort(String[] arr, int first, int last) {
-        if (first > last) {
-            int middle = first + (last - first) / 2;
+    public static void mergeSort(String[] arr, int firstIndex, int lastIndex) {
+        if (firstIndex > lastIndex) {
+            int midIndex = firstIndex + (lastIndex - firstIndex) / 2;
 
             //the new subarrays to be sorted recursively
-            mergeSort(arr, first, middle);
-            mergeSort(arr, middle + 1, last);
+            mergeSort(arr, firstIndex, midIndex);
+            mergeSort(arr, midIndex + 1, lastIndex);
             //merges the arrays back together while sorting them
-            merge(arr, first, middle, last);
+            merge(arr, firstIndex, midIndex, lastIndex);
         }
 
 
@@ -153,6 +153,32 @@ public class Sort {
         
     }
 
-    
+    public static void quickSort(String[] arr, int firstIndex, int lastIndex) {
+        if (firstIndex < lastIndex) {
+            int pivot = partition(arr, firstIndex, lastIndex);
+            quickSort(arr, firstIndex, pivot-1);
+            quickSort(arr, pivot+1, lastIndex);
+        }
+
+    }
+
+    public static int partition(String[] arr, int firstIndex, int lastIndex) {
+        String pivotVal = arr[(int)(Math.random() * (arr.length - 1))];
+        int pivotLoc = firstIndex - 1;
+        String tempStr = "";
+        for (int i = firstIndex; i <= lastIndex; i++) {
+            if (arr[i].toUpperCase().compareTo(pivotVal.toUpperCase()) <= 0) {
+                pivotLoc++;
+                tempStr = arr[pivotLoc];
+                arr[pivotLoc] = arr[i];
+                arr[i] = tempStr;
+            }
+        }
+        tempStr = arr[pivotLoc + 1];
+        arr[pivotLoc + 1] = arr[lastIndex];
+        arr[lastIndex] = tempStr;
+
+        return pivotLoc + 1;
+    }
 }
 

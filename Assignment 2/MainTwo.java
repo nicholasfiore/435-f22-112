@@ -63,10 +63,22 @@ public class MainTwo {
             System.out.print(": ");
             System.out.printf("%,5d", ((mergeEnd - mergeStart) / 1000));
             System.out.println(" µs\n");
+
+            Sort.shuffle(itemList);
+            long quickStart = System.nanoTime();
+            Sort.quickSort(itemList, 0, itemList.length-1);
+            long quickEnd = System.nanoTime();
+            System.out.println("\033[1mQuick Sort\033[0m");
+            System.out.print("Number of comparisons: ");
+            System.out.printf("%,5d %n", Sort.mergeCount);
+            System.out.printf("%-21s", "Time elapsed");
+            System.out.print(": ");
+            System.out.printf("%,5d", ((quickEnd - quickStart) / 1000));
+            System.out.println(" µs\n");
             
-            // for (int i = 0; i < itemList.length; i++) {
-            //     System.out.println(itemList[i]);
-            // }
+            for (int i = 0; i < itemList.length; i++) {
+                System.out.println(itemList[i]);
+            }
             
         } catch(FileNotFoundException ex) {
 			System.out.println("Failed to find file: " + file.getAbsolutePath());
