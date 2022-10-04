@@ -163,10 +163,10 @@ public class Sort {
     }
 
     public static int partition(String[] arr, int firstIndex, int lastIndex) {
-        String pivotVal = arr[(int)(Math.random() * (arr.length - 1))];
+        String pivotVal = arr[lastIndex];
         int pivotLoc = firstIndex - 1;
         String tempStr = "";
-        for (int i = firstIndex; i <= lastIndex; i++) {
+        for (int i = firstIndex; i < lastIndex; i++) {
             if (arr[i].toUpperCase().compareTo(pivotVal.toUpperCase()) <= 0) {
                 pivotLoc++;
                 tempStr = arr[pivotLoc];
