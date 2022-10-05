@@ -85,6 +85,19 @@ public class Sort {
         System.out.printf("%,7d", ((end - start) / 1000));
         System.out.println(" µs\n");
     }
+
+    //the initial method called when doing a merge sort. Recursively calls itself until all sub arrays are of size one, and then reverses
+    //the calls through merge to create a fully sorted array
+    public static void mergeSort(String[] arr, int firstIndex, int lastIndex) {
+        if (firstIndex < lastIndex) {
+            int midIndex = (firstIndex + lastIndex) / 2;
+            //the new subarrays to be sorted recursively
+            mergeSort(arr, firstIndex, midIndex);
+            mergeSort(arr, midIndex + 1, lastIndex);
+            //merges the arrays back together while sorting them
+            merge(arr, firstIndex, midIndex, lastIndex);
+        }
+    }
     
     //A seperate algorithm that takes in two subarrays and combines them while sorting them. This method is used recursively in mergeSort()
     //in order to divide and conquer
@@ -94,25 +107,25 @@ public class Sort {
         int rightSize = lastIndex - midIndex;
 
         //creates temporary arrays as copies of the sub arrays within the passed array
-        String[] arrLeft = new String[leftSize];
-        String[] arrRight = new String[rightSize];
+        String[] arrLeft = new String[leftSize + 1];
+        String[] arrRight = new String[rightSize + 1];
 
         //initializes the copy arrays
-        for (int i = 0; i < arrLeft.length; i++) {
-            arrLeft[i] = arrLeft[firstIndex + i];
+        for (int i = 0; i < leftSize; i++) {
+            arrLeft[i] = arrLeft[firstIndex + i - 1];
         }
-        for (int i = 0; i < arrRight.length; i++) {
-            arrRight[i] = arrRight[midIndex + 1 + i];
+        for (int i = 0; i < rightSize; i++) {
+            arrRight[i] = arrRight[midIndex + i];
         }
 
-        //variables to store the positions in the subarrays and original array
+        //variables to store the positions in the subarrays
         int i = 0;
         int j = 0;
-        int k = firstIndex;
+        int k;
 
         //Goes through both sub arrays, and places the earlier word/phrase in the original array at that position, until
         //one of subarrays reaches the end
-        while (i < leftSize && j < rightSize) {
+        for (k = firstIndex; k <= lastIndex; k++) {
             if ((arrLeft[i].toUpperCase()).compareTo(arrRight[j].toUpperCase()) <= 0) {
                 arr[k] = arrLeft[i];
                 i++;
@@ -135,22 +148,6 @@ public class Sort {
             j++;
             k++;
         }
-    }
-
-    public static void mergeSort(String[] arr, int firstIndex, int lastIndex) {
-        if (firstIndex > lastIndex) {
-            int midIndex = firstIndex + (lastIndex - firstIndex) / 2;
-
-            //the new subarrays to be sorted recursively
-            mergeSort(arr, firstIndex, midIndex);
-            mergeSort(arr, midIndex + 1, lastIndex);
-            //merges the arrays back together while sorting them
-            merge(arr, firstIndex, midIndex, lastIndex);
-        }
-
-
-        
-        
     }
 
     public static void quickSort(String[] arr, int firstIndex, int lastIndex) {

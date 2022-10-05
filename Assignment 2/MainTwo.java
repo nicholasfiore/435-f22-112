@@ -76,15 +76,16 @@ public class MainTwo {
             System.out.printf("%,5d", ((quickEnd - quickStart) / 1000));
             System.out.println(" µs\n");
             
-            for (int i = 0; i < itemList.length; i++) {
-                System.out.println(itemList[i]);
-            }
+            // for (int i = 0; i < itemList.length; i++) {
+            //     System.out.println(itemList[i]);
+            // }
             
         } catch(FileNotFoundException ex) {
 			System.out.println("Failed to find file: " + file.getAbsolutePath());
         } catch(Exception ex) {
             System.out.println("Something went wrong.");
             System.out.println(ex.getMessage());
+            ex.printStackTrace();
         }
     }
 }
