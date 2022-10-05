@@ -103,18 +103,18 @@ public class Sort {
     //in order to divide and conquer
     private static void merge(String[] arr, int firstIndex, int midIndex, int lastIndex) {
         //variables to store the size of both subarrays
-        int leftSize = midIndex - (firstIndex + 1);
+        int leftSize = midIndex - firstIndex + 1;
         int rightSize = lastIndex - midIndex;
 
         //creates temporary arrays as copies of the sub arrays within the passed array
-        String[] arrLeft = new String[leftSize + 1];
-        String[] arrRight = new String[rightSize + 1];
+        String[] arrLeft = new String[leftSize];
+        String[] arrRight = new String[rightSize];
 
         //initializes the copy arrays
-        for (int i = 0; i < leftSize; i++) {
+        for (int i = 1; i < leftSize; i++) {
             arrLeft[i] = arrLeft[firstIndex + i - 1];
         }
-        for (int i = 0; i < rightSize; i++) {
+        for (int i = 1; i < rightSize; i++) {
             arrRight[i] = arrRight[midIndex + i];
         }
 
@@ -125,7 +125,7 @@ public class Sort {
 
         //Goes through both sub arrays, and places the earlier word/phrase in the original array at that position, until
         //one of subarrays reaches the end
-        for (k = firstIndex; k <= lastIndex; k++) {
+        for (k = firstIndex; k < lastIndex; k++) {
             if ((arrLeft[i].toUpperCase()).compareTo(arrRight[j].toUpperCase()) <= 0) {
                 arr[k] = arrLeft[i];
                 i++;
@@ -133,7 +133,7 @@ public class Sort {
                 arr[k] = arrRight[j];
                 j++;
             }
-            k++;
+            mergeCount++;
         }
 
         //puts any remaining elements into the original array
