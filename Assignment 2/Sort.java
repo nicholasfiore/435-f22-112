@@ -7,6 +7,7 @@ import java.lang.Math;
 public class Sort {
     //global variables for counters
     static int mergeCount = 0;
+    static int quickCount = 0;
 
 
     //a method for shuffling an array based on the Knuth shuffle
@@ -111,21 +112,21 @@ public class Sort {
         String[] arrRight = new String[rightSize];
 
         //initializes the copy arrays
-        for (int i = 1; i < leftSize; i++) {
-            arrLeft[i] = arrLeft[firstIndex + i - 1];
+        for (int i = 0; i < leftSize; i++) {
+            arrLeft[i] = arr[firstIndex + i];
         }
-        for (int i = 1; i < rightSize; i++) {
-            arrRight[i] = arrRight[midIndex + i];
+        for (int j = 0; j < rightSize; j++) {
+            arrRight[j] = arr[midIndex + j + 1];
         }
 
         //variables to store the positions in the subarrays
         int i = 0;
         int j = 0;
-        int k;
+        int k = firstIndex;
 
         //Goes through both sub arrays, and places the earlier word/phrase in the original array at that position, until
         //one of subarrays reaches the end
-        for (k = firstIndex; k < lastIndex; k++) {
+        while (i < leftSize && j < rightSize) {
             if ((arrLeft[i].toUpperCase()).compareTo(arrRight[j].toUpperCase()) <= 0) {
                 arr[k] = arrLeft[i];
                 i++;
@@ -133,6 +134,7 @@ public class Sort {
                 arr[k] = arrRight[j];
                 j++;
             }
+            k++;
             mergeCount++;
         }
 
@@ -156,7 +158,6 @@ public class Sort {
             quickSort(arr, firstIndex, pivot-1);
             quickSort(arr, pivot+1, lastIndex);
         }
-
     }
 
     public static int partition(String[] arr, int firstIndex, int lastIndex) {
@@ -170,6 +171,7 @@ public class Sort {
                 arr[pivotLoc] = arr[i];
                 arr[i] = tempStr;
             }
+            quickCount++;
         }
         tempStr = arr[pivotLoc + 1];
         arr[pivotLoc + 1] = arr[lastIndex];
