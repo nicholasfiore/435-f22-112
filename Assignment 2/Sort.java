@@ -45,8 +45,6 @@ public class Sort {
         }
         end = (System.nanoTime());
 
-        //small string necessary for formatting
-
         //Print statements including formatting
         System.out.println("\033[1mSelection Sort\033[0m");
         System.out.print("Number of comparisons: ");
@@ -70,7 +68,7 @@ public class Sort {
             String key = arr[i];
             int j;
 
-            for (j = i - 1; j >= 0 && key.compareTo(arr[j]) < 0; j--) {
+            for (j = i - 1; j >= 0 && key.toUpperCase().compareTo(arr[j].toUpperCase()) < 0; j--) {
                 arr[j + 1] = arr[j];
                 compCounter++;
             }
