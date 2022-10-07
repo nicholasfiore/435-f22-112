@@ -17,6 +17,7 @@ public class Sort {
         } 
     }
 
+    //Selection sort algorithm
     public static void selectionSort(String[] arr) {
         //these two variables are used for determining the amount of time elapsed during the method execution
         long start = System.nanoTime();
@@ -25,7 +26,7 @@ public class Sort {
         int compCounter = 0;
         //temporary sring used for switching element position in an array.
         String temp = "";
-        
+        //the sorting algorithm
         for (int i = 0; i < arr.length - 1; i++) {
             int minPos = i;
             for (int j = i + 1; j < arr.length; j++) {
@@ -50,6 +51,7 @@ public class Sort {
         System.out.println(" µs\n");
     }
 
+    //Insertion sort
     public static void insertionSort(String[] arr) {
         //these two variables are used for determining the amount of time elapsed during the method execution
         long start = System.nanoTime();
@@ -58,7 +60,7 @@ public class Sort {
         int compCounter = 0;
         //temporary sring used for switching element position in an array.
         String temp = "";
-
+        //the sorting algorithm
         for (int i = 1; i < arr.length; i++) {
             String key = arr[i];
             int j;
@@ -144,7 +146,7 @@ public class Sort {
             k++;
         }
     }
-
+    //initial call for quickSort. Recursively partitions and calls itself until the list is merged
     public static void quickSort(String[] arr, int firstIndex, int lastIndex, int[] counter) {
         if (firstIndex < lastIndex) {
             int pivot = partition(arr, firstIndex, lastIndex, counter);
@@ -153,6 +155,8 @@ public class Sort {
         }
     }
 
+    //the partition step of the sort. This is where the comparions and sorting occurs. Chooses a pivot and puts other elements on either side of it depending
+    //on if it is lesser or greater.
     public static int partition(String[] arr, int firstIndex, int lastIndex, int[] counter) {
         String pivotVal = arr[lastIndex];
         int pivotLoc = firstIndex - 1;
