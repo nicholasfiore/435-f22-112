@@ -5,11 +5,6 @@ import java.lang.Math;
  */
 
 public class Sort {
-    //global variables for counters
-    static int mergeCount = 0;
-    static int quickCount = 0;
-
-
     //a method for shuffling an array based on the Knuth shuffle
     public static void shuffle(String[] arr) {
         String temp = "";
@@ -87,20 +82,20 @@ public class Sort {
 
     //the initial method called when doing a merge sort. Recursively calls itself until all sub arrays are of size one, and then reverses
     //the calls through merge to create a fully sorted array
-    public static void mergeSort(String[] arr, int firstIndex, int lastIndex) {
+    public static void mergeSort(String[] arr, int firstIndex, int lastIndex, int[] counter) {
         if (firstIndex < lastIndex) {
             int midIndex = (firstIndex + lastIndex) / 2;
             //the new subarrays to be sorted recursively
-            mergeSort(arr, firstIndex, midIndex);
-            mergeSort(arr, midIndex + 1, lastIndex);
+            mergeSort(arr, firstIndex, midIndex, counter);
+            mergeSort(arr, midIndex + 1, lastIndex, counter);
             //merges the arrays back together while sorting them
-            merge(arr, firstIndex, midIndex, lastIndex);
+            merge(arr, firstIndex, midIndex, lastIndex, counter);
         }
     }
     
     //A seperate algorithm that takes in two subarrays and combines them while sorting them. This method is used recursively in mergeSort()
     //in order to divide and conquer
-    private static void merge(String[] arr, int firstIndex, int midIndex, int lastIndex) {
+    private static void merge(String[] arr, int firstIndex, int midIndex, int lastIndex, int[] counter) {
         //variables to store the size of both subarrays
         int leftSize = midIndex - firstIndex + 1;
         int rightSize = lastIndex - midIndex;
@@ -133,7 +128,7 @@ public class Sort {
                 j++;
             }
             k++;
-            mergeCount++;
+            counter[0]++;
         }
 
         //puts any remaining elements into the original array
@@ -150,15 +145,15 @@ public class Sort {
         }
     }
 
-    public static void quickSort(String[] arr, int firstIndex, int lastIndex) {
+    public static void quickSort(String[] arr, int firstIndex, int lastIndex, int[] counter) {
         if (firstIndex < lastIndex) {
-            int pivot = partition(arr, firstIndex, lastIndex);
-            quickSort(arr, firstIndex, pivot-1);
-            quickSort(arr, pivot+1, lastIndex);
+            int pivot = partition(arr, firstIndex, lastIndex, counter);
+            quickSort(arr, firstIndex, pivot-1, counter);
+            quickSort(arr, pivot+1, lastIndex, counter);
         }
     }
 
-    public static int partition(String[] arr, int firstIndex, int lastIndex) {
+    public static int partition(String[] arr, int firstIndex, int lastIndex, int[] counter) {
         String pivotVal = arr[lastIndex];
         int pivotLoc = firstIndex - 1;
         String tempStr = "";
@@ -169,7 +164,7 @@ public class Sort {
                 arr[pivotLoc] = arr[i];
                 arr[i] = tempStr;
             }
-            quickCount++;
+            counter[0]++;
         }
         tempStr = arr[pivotLoc + 1];
         arr[pivotLoc + 1] = arr[lastIndex];
