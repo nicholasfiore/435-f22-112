@@ -45,12 +45,27 @@ public class MainThree {
             /* 
              * 
              */
+            
+            //
+            int compCounter = 0;
+            int currentIteration = 0;
 
-            //ensures that the array is sorted first
-            Sort.insertionSort(itemList);
-            
-            
-            
+            //small subprogram to get 42 random items from the list. By shuffling the original list randomly, the first 42 elements
+            //will be randomly "selected" by nature of a random shuffle and then just using those values. Technically, any range of
+            //42 elements within the original list would work, as they would all be randomized.
+            String[] randList = new String[42];
+            Sort.shuffle(itemList);
+            for (int i = 0; i < 42; i++) {
+                randList[i] = itemList[i];
+            }
+
+            //temporary int array to use mergeSort without having to change it completely
+            int[] temp = new int[1];
+            temp[0] = 0;
+            //sorts the array
+            Sort.mergeSort(itemList, 0, itemList.length, temp);
+
+
             
         } catch(FileNotFoundException ex) {
 			System.out.println("Failed to find file: " + file.getAbsolutePath());
