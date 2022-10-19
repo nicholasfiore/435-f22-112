@@ -46,6 +46,8 @@ public class MainThree {
              * 
              */
 
+            //ensures that the array is sorted first
+            Sort.insertionSort(itemList);
             
             
             
