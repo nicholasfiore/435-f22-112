@@ -46,9 +46,14 @@ public class MainThree {
              * 
              */
             
-            //
-            int compCounter = 0;
-            int currentIteration = 0;
+
+            //counters for the comparisons and the current search. Search count starts at 1, and will go to 42
+            int[] compCounter = new int[1];
+            compCounter[0] = 0;
+            int currentSearch = 1;
+
+            //array for storing the comparison counts of each search, to be used to find the average
+            int[] averages = new int[42];
 
             //small subprogram to get 42 random items from the list. By shuffling the original list randomly, the first 42 elements
             //will be randomly "selected" by nature of a random shuffle and then just using those values. Technically, any range of
@@ -62,9 +67,46 @@ public class MainThree {
             //temporary int array to use mergeSort without having to change it completely
             int[] temp = new int[1];
             temp[0] = 0;
-            //sorts the array
-            Sort.mergeSort(itemList, 0, itemList.length, temp);
 
+            //sorts the array using a mergeSort algorithm
+            Sort.mergeSort(itemList, 0, itemList.length - 1, temp);
+
+            /* Linear Search */
+            System.out.println("\033[1mLinear Search\033[0m");
+            //displays the comparisons for every Linear search made
+            for (int i = 0; i < randList.length; i++) {
+                int index = Search.linearSearch(itemList, randList[i], compCounter);
+                System.out.println("Search " + currentSearch + " number of comparisons: \033[1m" + compCounter[0] + "\033[0m. Key (" + randList[i] + ") was found at index " + index);
+                averages[i] = compCounter[0];
+                compCounter[0] = 0;
+                currentSearch++;
+            }
+
+            //calculates and displays the average of all the searches
+            int total = 0;
+            for (int j = 0; j < averages.length; j++) {
+                total += averages[j];
+            }
+            int average = total / averages.length;
+            System.out.println("Average number of comparisons: " + average);
+            System.out.println();
+            
+            //resets counters and other values to default
+            compCounter[0] = 0;
+            currentSearch = 1;
+            average = 0;
+            total = 0;
+
+            /* Binary Search */
+            System.out.println("\033[1mBinary Search\033[0m");
+            //
+            for (int i = 0; i < randList.length; i++) {
+                int index = Search.binarySearch(itemList, 0, itemList.length - 1, randList[i], compCounter);
+                System.out.println("Search " + currentSearch + " number of comparisons: \033[1m" + compCounter[0] + "\033[0m. Key (" + randList[i] + ") was found at index " + index);
+                averages[i] = compCounter[0];
+                compCounter[0] = 0;
+                currentSearch++;
+            }
 
             
         } catch(FileNotFoundException ex) {
