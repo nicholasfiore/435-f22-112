@@ -100,24 +100,24 @@ public class MainThree {
             /* Binary Search */
             System.out.println("\033[1mBinary Search\033[0m");
             //
-            // for (int i = 0; i < randList.length; i++) {
-            //     int index = Search.binarySearch(itemList, 0, itemList.length, randList[i], compCounter);
-            //     System.out.println("Search " + currentSearch + " number of comparisons: \033[1m" + compCounter[0] + "\033[0m. Key (" + randList[i] + ") was found at index " + index);
-            //     averages[i] = compCounter[0];
-            //     compCounter[0] = 0;
-            //     currentSearch++;
-            // }
+            for (int i = 0; i < randList.length; i++) {
+                int index = Search.binarySearch(itemList, 0, itemList.length, randList[i], compCounter);
+                System.out.println("Search " + currentSearch + " number of comparisons: \033[1m" + compCounter[0] + "\033[0m. Key (" + randList[i] + ") was found at index " + index);
+                averages[i] = compCounter[0];
+                compCounter[0] = 0;
+                currentSearch++;
+            }
 
-            
+            //System.out.println("Index: " + Search.binarySearch(itemList, 0, itemList.length - 1, itemList[665], compCounter) + ". Comparisons: " + compCounter[0]);
 
             //calculates and displays the average of all the searches
-            // total = 0;
-            // for (int j = 0; j < averages.length; j++) {
-            //     total += averages[j];
-            // }
-            // average = total / averages.length;
-            // System.out.println("Average number of comparisons: " + average);
-            // System.out.println();
+            total = 0;
+            for (int j = 0; j < averages.length; j++) {
+                total += averages[j];
+            }
+            average = total / averages.length;
+            System.out.println("Average number of comparisons: " + average);
+            System.out.println();
 
             
         } catch(FileNotFoundException ex) {

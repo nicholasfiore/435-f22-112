@@ -21,18 +21,18 @@ public class Search {
     //the index, otherwise returns -1.
     public static int binarySearch(String[] arr, int startIndex, int endIndex, String key, int[] counter) {
         int retVal;
-        int midIndex = (endIndex - startIndex + 1) / 2;
+        int midIndex = (endIndex + startIndex) / 2;
         if (startIndex > endIndex) {
             retVal = -1;
-        } else if (key.compareTo(arr[midIndex]) == 0) {
+        } else if (key.toUpperCase().compareTo(arr[midIndex].toUpperCase()) == 0) {
+            counter[0]++;
             retVal = midIndex;
+        } else if (key.toUpperCase().compareTo(arr[midIndex].toUpperCase()) < 0) {
             counter[0]++;
-        } else if (key.compareTo(arr[midIndex]) < 0) {
             retVal = binarySearch(arr, startIndex, midIndex - 1, key, counter);
-            counter[0]++;
         } else {
-            retVal = binarySearch(arr, midIndex + startIndex + 1, endIndex, key, counter);
             counter[0]++;
+            retVal = binarySearch(arr, midIndex + 1, endIndex, key, counter);
         }
         return retVal;
     }
