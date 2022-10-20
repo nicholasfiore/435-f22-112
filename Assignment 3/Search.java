@@ -20,7 +20,7 @@ public class Search {
     //then search depending on whether the key is lesser or greater than the element at the middle. If the element is found, returns
     //the index, otherwise returns -1.
     public static int binarySearch(String[] arr, int startIndex, int endIndex, String key, int[] counter) {
-        int retVal = 0;
+        int retVal;
         int midIndex = (endIndex - startIndex + 1) / 2;
         if (startIndex > endIndex) {
             retVal = -1;
@@ -39,7 +39,7 @@ public class Search {
 
     public static int binarySearchIt(String[] arr, int startIndex, int endIndex, String key, int[] counter) {
         int low = startIndex;
-        int high = (endIndex + 1) - startIndex;
+        int high = (endIndex) - startIndex;
         while (low < high) {
             int mid = (low + high) / 2;
             if (key.compareTo(arr[mid]) <= 0) {
