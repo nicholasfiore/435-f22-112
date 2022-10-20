@@ -101,12 +101,21 @@ public class MainThree {
             System.out.println("\033[1mBinary Search\033[0m");
             //
             for (int i = 0; i < randList.length; i++) {
-                int index = Search.binarySearch(itemList, 0, itemList.length - 1, randList[i], compCounter);
+                int index = Search.binarySearchIt(itemList, 0, itemList.length, randList[i], compCounter);
                 System.out.println("Search " + currentSearch + " number of comparisons: \033[1m" + compCounter[0] + "\033[0m. Key (" + randList[i] + ") was found at index " + index);
                 averages[i] = compCounter[0];
                 compCounter[0] = 0;
                 currentSearch++;
             }
+
+            //calculates and displays the average of all the searches
+            total = 0;
+            for (int j = 0; j < averages.length; j++) {
+                total += averages[j];
+            }
+            average = total / averages.length;
+            System.out.println("Average number of comparisons: " + average);
+            System.out.println();
 
             
         } catch(FileNotFoundException ex) {
