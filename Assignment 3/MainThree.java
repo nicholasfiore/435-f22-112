@@ -108,8 +108,6 @@ public class MainThree {
                 currentSearch++;
             }
 
-            //System.out.println("Index: " + Search.binarySearch(itemList, 0, itemList.length - 1, itemList[665], compCounter) + ". Comparisons: " + compCounter[0]);
-
             //calculates and displays the average of all the searches
             total = 0;
             for (int j = 0; j < averages.length; j++) {
