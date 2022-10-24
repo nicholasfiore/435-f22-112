@@ -3,7 +3,7 @@
  */
 public class Node {
     /* Data Fields */
-    private char myChar = ' ';
+    private String myString = "";
     private Node myNext = null;
 
     /* Constructors */
@@ -11,20 +11,20 @@ public class Node {
     public Node() {}
 
     //Partial constructor for initializing only the Item within the Node
-    public Node(char character) {
-        myChar = character;
+    public Node(String str) {
+        myString = str;
     }
 
     //Full constuctor for creating a Node object and assigning an character name and next Node object pointer
-    public Node(char character, Node next) {
-        myChar = character;
+    public Node(String str, Node next) {
+        myString = str;
         myNext = next;
     }
 
     /* Accessors and Mutators */
     //Returns the character String of the Node object
-    public char getMyChar() {
-        return myChar;
+    public String getMyString() {
+        return myString;
     }
 
     //Returns the pointer for the next Node object in the list
@@ -33,8 +33,8 @@ public class Node {
     }
 
     //Changes the value of the character String of a Node object to a new String
-    public void setMyChar(char myChar) {
-        this.myChar = myChar;
+    public void setMyString(String myString) {
+        this.myString = myString;
     }
 
     //Changes the pointer of the next pointer of a Node object to a new pointer to a node Object (or NULL)
