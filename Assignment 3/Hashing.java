@@ -31,7 +31,7 @@ public class Hashing {
         return hashCode;
     }
 
-    public static int put(String key) {
+    public static void put(String key) {
         int hash = makeHashCode(key);
         Node newNode = new Node(key);
         if (hashTable[hash] != null) {
@@ -39,17 +39,14 @@ public class Hashing {
         } else {
             hashTable[hash] = new LinkedList(newNode);
         }
-        return hash;
     }
 
     public static boolean get(int hash, String key) {
         boolean retFlag = false;
-        boolean loopFlag = true;
         Node listHead = hashTable[hash].getMyHead();
-        while (listHead.getMyNext() != null && loopFlag) {
+        while (listHead.getMyNext() != null && !(retFlag)) {
             if (listHead.getMyString().compareTo(key) == 0) {
                 retFlag = true;
-                loopFlag = false;
             }
             listHead = listHead.getMyNext();
         }
