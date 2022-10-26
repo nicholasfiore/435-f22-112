@@ -31,17 +31,18 @@ public class Hashing {
         return hashCode;
     }
 
-    public static void put(String key, LinkedList[] hashTable) {
+    public static int put(String key) {
         int hash = makeHashCode(key);
         Node newNode = new Node(key);
-        if (hashTable[hash] == null) {
-            hashTable[hash] = new LinkedList(newNode);
-        } else {
+        if (hashTable[hash] != null) {
             hashTable[hash].push(newNode);
+        } else {
+            hashTable[hash] = new LinkedList(newNode);
         }
+        return hash;
     }
 
-    public static boolean get(int hash, String key, LinkedList[] hashTable) {
+    public static boolean get(int hash, String key) {
         boolean retFlag = false;
         boolean loopFlag = true;
         Node listHead = hashTable[hash].getMyHead();

@@ -117,6 +117,22 @@ public class MainThree {
             System.out.println("Average number of comparisons: " + average);
             System.out.println();
 
+
+            /* Hashing */
+            //a list that stores the hash values for every item in itemList. The hash value at an index is directly relational to its item
+            //name at the same index.
+            int[] hashList = new int[665];
+
+            //adds all the items in the list to the hash table in Hashing.java
+            for (int i = 0; i < itemList.length; i++) {
+                hashList[i] = Hashing.put(itemList[i]);
+            }
+
+            //the list of items to be searched with the hash table. Numbers were all chosen randomly once with an external number generator.
+            int[] choiceList = new int[]{24, 45, 64, 80, 111, 114, 123, 152, 192, 205, 225, 232, 236, 249, 262, 269, 301, 302, 320, 324, 339,
+                355, 366, 387, 411, 434, 444, 445, 460, 464, 477, 491, 507, 545, 556, 577, 581, 604, 615, 639, 657, 665};
+
+            //
             
         } catch(FileNotFoundException ex) {
 			System.out.println("Failed to find file: " + file.getAbsolutePath());
