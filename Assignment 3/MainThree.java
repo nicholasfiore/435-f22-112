@@ -137,12 +137,13 @@ public class MainThree {
             for (int i = 0; i < choiceList.length; i++) {
                 String key = itemList[choiceList[i]];
                 int hash = Hashing.makeHashCode(key);
-                boolean wasFound = Hashing.get(hash, key);
+                boolean wasFound = Hashing.get(hash, key, compCounter);
                 if (wasFound) {
                     System.out.println(key + " was found after " + compCounter[0] + " comparisons.");
                 } else {
                     System.out.println(key + " was not found.");
                 }
+                compCounter[0] = 0;
             }
             
         } catch(FileNotFoundException ex) {

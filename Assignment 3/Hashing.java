@@ -41,13 +41,14 @@ public class Hashing {
         }
     }
 
-    public static boolean get(int hash, String key) {
+    public static boolean get(int hash, String key, int[] counter) {
         boolean retFlag = false;
         Node listHead = hashTable[hash].getMyHead();
         while (listHead.getMyNext() != null && !(retFlag)) {
             if (listHead.getMyString().compareTo(key) == 0) {
                 retFlag = true;
             }
+            counter[0]++;
             listHead = listHead.getMyNext();
         }
         return retFlag;
