@@ -139,9 +139,9 @@ public class MainThree {
                 int hash = Hashing.makeHashCode(key);
                 boolean wasFound = Hashing.get(hash, key, compCounter);
                 if (wasFound) {
-                    System.out.println(key + " was found after " + compCounter[0] + " comparisons.");
+                    System.out.println("S: " + key + " was found after " + compCounter[0] + " comparisons.");
                 } else {
-                    System.out.println(key + " was not found.");
+                    System.out.println(key + " was not found. " + compCounter[0]+ " comparisons were made.");
                 }
                 compCounter[0] = 0;
             }

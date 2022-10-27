@@ -44,7 +44,7 @@ public class Hashing {
     public static boolean get(int hash, String key, int[] counter) {
         boolean retFlag = false;
         Node listHead = hashTable[hash].getMyHead();
-        while (listHead.getMyNext() != null && !(retFlag)) {
+        while (listHead != null && !(retFlag)) {
             if (listHead.getMyString().compareTo(key) == 0) {
                 retFlag = true;
             }
