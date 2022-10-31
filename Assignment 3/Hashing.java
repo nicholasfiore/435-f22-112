@@ -12,6 +12,7 @@ public class Hashing {
     private static final int HASH_TABLE_SIZE = 250;
     private static LinkedList[] hashTable = new LinkedList[HASH_TABLE_SIZE];
 
+    //Creates a hash code based on the ASCII values of all the characters in the String
     public static int makeHashCode(String str) {
         str = str.toUpperCase();
         int length = str.length();
@@ -31,6 +32,7 @@ public class Hashing {
         return hashCode;
     }
 
+    //puts String into the hash table that is stored in the class as a static variable. Uses makeHashCode() to create the hash.
     public static void put(String key) {
         int hash = makeHashCode(key);
         Node newNode = new Node(key);
@@ -41,6 +43,7 @@ public class Hashing {
         }
     }
 
+    //finds the String within the hash table based on the hash table and the String itself as a key.
     public static boolean get(int hash, String key, int[] counter) {
         boolean retFlag = false;
         Node listHead = hashTable[hash].getMyHead();

@@ -133,18 +133,32 @@ public class MainThree {
             int[] choiceList = new int[]{24, 45, 64, 80, 111, 114, 123, 152, 192, 205, 225, 232, 236, 249, 262, 269, 301, 302, 320, 324, 339,
                 355, 366, 387, 411, 434, 444, 445, 460, 464, 477, 491, 507, 545, 556, 577, 581, 604, 615, 639, 657, 665};
 
-            //
+            System.out.println("\033[1mHash and Search\033[1m");
+            //the actual process of searching using the hash codes. Instead of storing all the hash codes in an array, the makeHashCode
+            //method is just called again. This also allows inputs of strings that are not in the itemList array.
             for (int i = 0; i < choiceList.length; i++) {
+                //key and hash are used for the call to the get() function in hashing
                 String key = itemList[choiceList[i]];
                 int hash = Hashing.makeHashCode(key);
+                //finds the value of get() from Hashing to determine outut
                 boolean wasFound = Hashing.get(hash, key, compCounter);
                 if (wasFound) {
-                    System.out.println("S: " + key + " was found after " + compCounter[0] + " comparisons.");
+                    System.out.println(key + " was found after \033[1m" + compCounter[0] + "\033[0m comparisons.");
                 } else {
-                    System.out.println(key + " was not found. " + compCounter[0]+ " comparisons were made.");
+                    System.out.println(key + " was not found.");
                 }
+                averages[i] = compCounter[0];
                 compCounter[0] = 0;
             }
+
+            //calculates and displays the average of all the searches
+            total = 0;
+            for (int j = 0; j < averages.length; j++) {
+                total += averages[j];
+            }
+            average = total / averages.length;
+            System.out.println("Average number of comparisons: " + average);
+            System.out.println();
             
         } catch(FileNotFoundException ex) {
 			System.out.println("Failed to find file: " + file.getAbsolutePath());
