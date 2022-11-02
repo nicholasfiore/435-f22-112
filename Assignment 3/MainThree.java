@@ -6,7 +6,8 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 
 /* 
- * The purpose of this program is TODO
+ * The purpose of this program is to test the asymptomatic run times of different searching algorithms. The algorithms include linear search,
+ * binary search, and searching using hashing.
  */
 
 public class MainThree {

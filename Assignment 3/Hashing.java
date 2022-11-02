@@ -1,5 +1,6 @@
 /*
-   Hash code tests and analytics.
+ * A class used for hashing and searching. Includes a function to create a hash code, and then a put() function to put the String in the
+ * hash table, and a get() function to search the hash table for a String
  */
 
 import java.io.BufferedReader;

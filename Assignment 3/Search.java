@@ -1,6 +1,6 @@
-
 /*
- * A class used to maintain static methods for searching algorithms (namely linear search and binary search)
+ * A class used to maintain static methods for searching algorithms (namely linear search and binary search). Linear search is iterative,
+ * while binary search is recursive.
  */
 public class Search {
 
