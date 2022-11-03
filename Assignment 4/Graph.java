@@ -4,6 +4,7 @@ public class Graph {
     /* Data Fields */
     private String name = "";
     private ArrayList<Vertex> verticies = new ArrayList<Vertex>();
+    private char[][] matrix;
 
     /* Accesors/Mutators */
     public String getName() {
@@ -23,5 +24,18 @@ public class Graph {
     public void addEdge(Vertex vert1, Vertex vert2) {
         vert1.addNeighbor(vert2);
         vert2.addNeighbor(vert1);
+    }
+    //Prints the maxtrix representation of the graph
+    public void printMatrix() {
+        int size = verticies.size();
+        int i, j;
+        matrix = new char[size + 1][size + 1];
+        matrix[0][0] = ' ';
+        //creates the "labels" of the matrix
+        for (i = 1; i < matrix.length; i++) {
+            matrix[i][0] = (char)(i + 48);
+            matrix[0][i] = (char)(i + 48);
+        }
+        
     }
 }
