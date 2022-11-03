@@ -5,6 +5,7 @@
 public class TreeNode {
     /* Data Fields */
     private String myString = "";
+    private TreeNode myParent = null;
     private TreeNode myLeft = null;
     private TreeNode myRight = null;
 
@@ -30,6 +31,10 @@ public class TreeNode {
         return myString;
     }
 
+    public TreeNode getMyParent() {
+        return myParent;
+    }
+
     //Returns the pointer for the next Node object to the left
     public TreeNode getMyLeft() {
         return myLeft;
@@ -43,6 +48,10 @@ public class TreeNode {
     //Changes the value of the character String of a Node object to a new String
     public void setMyString(String myString) {
         this.myString = myString;
+    }
+
+    public void setMyParent(TreeNode myParent) {
+        this.myParent = myParent;
     }
 
     //Changes the pointer of the left pointer of a Node object to a new pointer to a node Object (or NULL)
