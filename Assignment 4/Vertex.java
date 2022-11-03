@@ -24,9 +24,8 @@ public class Vertex {
     }
 
     /* Functions */
+    //adds an adjacent vertex as a neighbor to the neighbors ArrayList
     public void addNeighbor(Vertex neighbor) {
         this.neighbors.add(neighbor);
     }
-
-    
 }
