@@ -1,23 +1,24 @@
 /*
  * The Node class is used to created linked lists of objects in order to more variably control the size of said list without being locked into an array
+ * This is a modified version of the Node class to be used to construct binary trees.
  */
-public class Node {
+public class TreeNode {
     /* Data Fields */
     private String myString = "";
-    private Node myLeft = null;
-    private Node myRight = null;
+    private TreeNode myLeft = null;
+    private TreeNode myRight = null;
 
     /* Constructors */
     //No-arg (default) constructor for creating a default Node object
-    public Node() {}
+    public TreeNode() {}
 
     //Partial constructor for initializing only the Item within the Node
-    public Node(String str) {
+    public TreeNode(String str) {
         myString = str;
     }
 
     //Full constuctor for creating a Node object and assigning an character name and next Node object pointer for left and right
-    public Node(String str, Node left, Node right) {
+    public TreeNode(String str, TreeNode left, TreeNode right) {
         myString = str;
         myLeft = left;
         myRight = right;
@@ -30,12 +31,12 @@ public class Node {
     }
 
     //Returns the pointer for the next Node object to the left
-    public Node getMyLeft() {
+    public TreeNode getMyLeft() {
         return myLeft;
     }
 
     //Returns the pointer for the next Node object to the right
-    public Node getMyRight() {
+    public TreeNode getMyRight() {
         return myRight;
     }
 
@@ -45,12 +46,12 @@ public class Node {
     }
 
     //Changes the pointer of the left pointer of a Node object to a new pointer to a node Object (or NULL)
-    public void setMyLeft(Node myLeft) {
+    public void setMyLeft(TreeNode myLeft) {
         this.myLeft = myLeft;
     }
 
     //Changes the pointer of the right pointer of a Node object to a new pointer to a node Object (or NULL)
-    public void setMyRight(Node myRight) {
+    public void setMyRight(TreeNode myRight) {
         this.myRight = myRight;
     }
 
