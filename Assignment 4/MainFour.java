@@ -20,6 +20,7 @@ public class MainFour {
         String[] itemList = null;
 
         magicLines = fileToArray("magicitems.txt", itemList);
+        
     }
 
     //takes a file name and a list and puts each line of the file into a String in an array
@@ -27,7 +28,6 @@ public class MainFour {
         long totalLines = 0;
         File file = new File(fileName);
         BufferedReader input = null;
-        String line;
         try {
             //gets the path of the current file in order to get the # of lines
             Path path = Paths.get(file.getName());
@@ -40,6 +40,53 @@ public class MainFour {
 
             for(int i = 0; i < totalLines; i++) {
                 list[i] = input.readLine();
+            }
+
+        } catch(FileNotFoundException ex) {
+            System.out.println("Failed to find file: " + file.getAbsolutePath());
+        } catch(IOException ex) {
+            System.out.println(ex);
+        } catch(Exception ex) {
+            System.out.println("Something went wrong.");
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        } finally {
+            if (input != null) {
+                input.close();
+            }
+        }
+
+        return (int)totalLines;
+    }
+
+    //Creates graphs from instructions given in a file
+    public static int createGraph(String fileName, String[] list) throws IOException {
+        long totalLines = 0;
+        File file = new File(fileName);
+        BufferedReader input = null;
+        String line;
+        try {
+            //gets the path of the current file in order to get the # of lines
+            Path path = Paths.get(file.getName());
+
+            input = new BufferedReader(new FileReader(fileName)); 
+
+            totalLines = Files.lines(path).count();
+
+            for (int i = 0; i < totalLines; i++) {
+                line = input.readLine();
+                if (line.charAt(0) == '-' && line.charAt(1) == '-') {
+                    //do nothing, ignore this line as it is a comment
+                } else if (line.split(" ")[0].compareTo("new") == 0) {
+
+
+                } else if (line.split(" ")[0].compareTo("add") == 0) {
+                    if (line.split(" ")[1].compareTo("vertex") == 0) {
+
+                    } else if (line.split(" ")[1].compareTo("edge") == 0) {
+
+                    }
+                }
             }
 
         } catch(FileNotFoundException ex) {
