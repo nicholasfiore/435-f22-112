@@ -95,7 +95,11 @@ public class MainFour {
                         graph.addVertex(vert1);
                     } else if (line.split(" ")[1].compareTo("edge") == 0) {
                         //adds a new edge to the graph, based on the IDs parsed from the line
+                            //the verticies are found by searching the graph's verticies ArrayList for a Vertex that matches the ID given in the line at both positions
+                        vert1 = Search.linearSearch(graph.getVerticies(), Integer.parseInt(line.split(" ")[2]));
+                        vert2 = Search.linearSearch(graph.getVerticies(), Integer.parseInt(line.split(" ")[4]));
                         
+                        graph.addEdge(vert1, vert2); //the verticies are now added as neighbors, forming an adjacency
                     }
                 }
             }

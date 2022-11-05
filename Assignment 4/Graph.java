@@ -22,6 +22,10 @@ public class Graph {
         return this.name;
     }
 
+    public ArrayList<Vertex> getVerticies() {
+        return verticies;
+    }
+
     public void setName(String newName) {
         this.name = newName;
     }

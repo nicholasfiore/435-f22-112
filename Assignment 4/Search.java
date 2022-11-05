@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 /*
  * A class used to maintain static methods for searching algorithms (namely linear search and binary search). Linear search is iterative,
  * while binary search is recursive.
@@ -14,6 +15,17 @@ public class Search {
         if (i >= arr.length)
             i = -1;
         return i;
+    }
+
+    //sequentially searches the list for the key, returning the index of where it was found. If it was not found, returns -1. Version for ArrayLists.
+    public static Vertex linearSearch(ArrayList<Vertex> list, int key) {
+        int i = 0;
+        while (i < list.size() && list.get(i).getId() != key) {
+            i++;
+        }
+        if (i >= list.size())
+            i = -1;
+        return list.get(i);
     }
 
     //recursively searches the list by comparing the key to the item at the middle of the list, then choosing half of the array to
