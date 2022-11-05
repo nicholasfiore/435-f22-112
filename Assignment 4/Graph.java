@@ -6,6 +6,17 @@ public class Graph {
     private ArrayList<Vertex> verticies = new ArrayList<Vertex>();
     private char[][] matrix;
 
+    /* Constructors */
+    //Default, empty constuctor
+    public Graph() {
+
+    }
+    
+    //constuctor with name parameter
+    public Graph(String newName) {
+        this.name = newName;
+    }
+
     /* Accesors/Mutators */
     public String getName() {
         return this.name;

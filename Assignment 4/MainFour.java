@@ -73,18 +73,29 @@ public class MainFour {
 
             totalLines = Files.lines(path).count();
 
+            //instantiate variables for graph and vertex objects. There are two Vertex objects in the case of adding edges.
+            Graph graph = null;
+            Vertex vert1 = null;
+            Vertex vert2 = null;
+
+
+
             for (int i = 0; i < totalLines; i++) {
                 line = input.readLine();
-                if (line.charAt(0) == '-' && line.charAt(1) == '-') {
+                if (line.split(" ")[0].compareTo("--") == 0) {
                     //do nothing, ignore this line as it is a comment
                 } else if (line.split(" ")[0].compareTo("new") == 0) {
-
+                    //create a new graph object held by the graph variable
+                    graph = new Graph();
 
                 } else if (line.split(" ")[0].compareTo("add") == 0) {
                     if (line.split(" ")[1].compareTo("vertex") == 0) {
-
+                        //adds a new vertex to the graph, parsing the ID from the line given
+                        vert1 = new Vertex(Integer.parseInt(line.split(" ")[2]));
+                        graph.addVertex(vert1);
                     } else if (line.split(" ")[1].compareTo("edge") == 0) {
-
+                        //adds a new edge to the graph, based on the IDs parsed from the line
+                        
                     }
                 }
             }

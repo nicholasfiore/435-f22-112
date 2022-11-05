@@ -6,6 +6,16 @@ public class Vertex {
     private boolean processed = false;
     private ArrayList<Vertex> neighbors = new ArrayList<Vertex>();
 
+    /* Constuctors */
+    public Vertex() {
+        //default empty constructor
+    }
+
+    //constuctor with ID parameter
+    public Vertex(int idNum) {
+        this.id = idNum;
+    }
+
     /* Accessors/Mutators */
     public int getId() {
         return this.id;
