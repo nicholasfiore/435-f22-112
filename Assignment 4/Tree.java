@@ -25,29 +25,32 @@ public class Tree {
     public void insert(TreeNode newNode) {
         TreeNode trailing = null;
         TreeNode current = this.myRoot;
+        System.out.print("Inserting " + newNode.getMyString() + ": ");
         while (current != null) {
             trailing = current;
-            if (newNode.getMyString().compareTo(current.getMyString()) < 0) {
+            if ((newNode.getMyString().toUpperCase()).compareTo(current.getMyString().toUpperCase()) < 0) {
                 current = current.getMyLeft();
-                System.out.print("L, ");
+                System.out.print("L");
             }
             else {//must be >=
-                current.getMyRight();
-                System.out.print("R, ");
+                current = current.getMyRight();
+                System.out.print("R");
             }
+            System.out.print(" ");
         }
         newNode.setMyParent(trailing);
         if (trailing != null) {
-            if (newNode.getMyString().compareTo(trailing.getMyString()) < 0) {
+            if ((newNode.getMyString().toUpperCase()).compareTo(trailing.getMyString().toUpperCase()) < 0) {
                 trailing.setMyLeft(newNode);
-                System.out.print("L");
             }
             else { // >=
                 trailing.setMyRight(newNode);
-                System.out.print("R");
             }
         }
-        else
+        else {
             this.setMyRoot(newNode);
+            System.out.print("Root.");
+        }
+    System.out.println();
     }
 }

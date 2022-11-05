@@ -63,4 +63,29 @@ public class Search {
         }
         return high;
     }
+
+    //searches a binary tree based on a list of keys to compare. Functions very similarly to binary search due to the nature of a binary tree.
+    public static boolean searchBinaryTree(Tree bst, String key, int[] comparisons) {
+        boolean retVal = false;
+        TreeNode root = bst.getMyRoot();
+        TreeNode current = root;
+        comparisons[0] = 0;
+        while(current != null && (current.getMyString().toUpperCase()).compareTo(key) == 0) {
+            if ((current.getMyString().toUpperCase()).compareTo(key) < 0) {
+                current = current.getMyLeft();
+                System.out.print("L");
+                comparisons[0]++;
+            } else {
+                current = current.getMyRight();
+                System.out.print("R");
+                comparisons[0]++;
+            }
+            System.out.print(", ");
+        }
+        if ((current.getMyString().toUpperCase()).compareTo(key) == 0) {
+            retVal = true;
+        } 
+        System.out.print(". Comparisons made: " + comparisons[0]);
+        return retVal;
+    }
 }

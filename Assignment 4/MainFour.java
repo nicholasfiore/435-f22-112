@@ -11,20 +11,30 @@ import java.nio.file.Paths;
 
 public class MainFour {
     public static void main(String[] args) throws IOException {
-        //long variable to store the total lines of a .txt, then ints to store them per file
+        //int variables to store the total lines of a .txt, then ints to store them per file
         int magicLines; //lines in magicitems.txt
         int treeLines; //lines in magicitems-find-in-bst.txt
         int graphLines; //lines in graphs1.txt
 
+        //variable to store comparisons 
+        int[] compCounter = new int[1];
+
         //array to hold all the items in the magic items list
         String[] itemList = null;
 
-        magicLines = fileToArray("magicitems.txt", itemList);
+        itemList = fileToArray("magicitems.txt", itemList);
+
+        //array to hold the list of items that will be used to search the binary tree
+        String[] searchList = null;
+
+        searchList = fileToArray("magicitems-find-in-bst.txt", searchList);
         
+        createBinaryTree(itemList);
+
     }
 
     //takes a file name and a list and puts each line of the file into a String in an array
-    public static int fileToArray(String fileName, String[] list) throws IOException {
+    public static String[] fileToArray(String fileName, String[] list) throws IOException {
         long totalLines = 0;
         File file = new File(fileName);
         BufferedReader input = null;
@@ -56,11 +66,33 @@ public class MainFour {
             }
         }
 
-        return (int)totalLines;
+        return list;
     }
 
+    //takes in an array of Strings and adds the entirety of the array to a Tree, before returning that Tree object.
+    public static Tree createBinaryTree(String[] list) {
+        Tree tree = new Tree();
+        for (int i = 0; i < list.length; i++) {
+            tree.insert(new TreeNode(list[i]));
+        }
+        return tree;
+    }
+
+    //calls the searchBinaryTree function for every String in the tree, then computes the average and returns it.
+    public static int searchTreeFromList(String[] list, Tree bst, int[] comparisons) {
+        int total = 0;
+        int average;
+        for (int i = 0; i < list.length; i++) {
+            Search.searchBinaryTree(bst, list[i], comparisons);
+            total += comparisons[0];
+        }
+        average = total / list.length;
+        return average;
+    }
+    
+
     //Creates graphs from instructions given in a file
-    public static int createGraph(String fileName, String[] list) throws IOException {
+    public static int createGraph(String fileName) throws IOException {
         long totalLines = 0;
         File file = new File(fileName);
         BufferedReader input = null;
