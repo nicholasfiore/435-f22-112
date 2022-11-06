@@ -70,22 +70,26 @@ public class Search {
         TreeNode root = bst.getMyRoot();
         TreeNode current = root;
         comparisons[0] = 0;
-        while(current != null && (current.getMyString().toUpperCase()).compareTo(key) == 0) {
-            if ((current.getMyString().toUpperCase()).compareTo(key) < 0) {
+        System.out.print("Searching for " + key + ":");
+        while(current != null && (current.getMyString().toUpperCase()).compareTo(key.toUpperCase()) != 0) {
+            if ((current.getMyString().toUpperCase()).compareTo(key.toUpperCase()) > 0) {
                 current = current.getMyLeft();
-                System.out.print("L");
+                System.out.print(" L");
                 comparisons[0]++;
             } else {
                 current = current.getMyRight();
-                System.out.print("R");
+                System.out.print(" R");
                 comparisons[0]++;
             }
-            System.out.print(", ");
+            System.out.print(",");
         }
-        if ((current.getMyString().toUpperCase()).compareTo(key) == 0) {
+        if (current != null && (current.getMyString().toUpperCase()).compareTo(key.toUpperCase()) == 0) {
             retVal = true;
-        } 
-        System.out.print(". Comparisons made: " + comparisons[0]);
+            System.out.print(" found. ");
+        } else {
+            System.out.print(" not found. ");
+        }
+        System.out.print("Comparisons made: " + comparisons[0] + "\n");
         return retVal;
     }
 }

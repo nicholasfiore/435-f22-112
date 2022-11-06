@@ -29,7 +29,9 @@ public class MainFour {
 
         searchList = fileToArray("magicitems-find-in-bst.txt", searchList);
         
-        createBinaryTree(itemList);
+        Tree binarySearchTree = createBinaryTree(itemList);
+
+        searchTreeFromList(searchList, binarySearchTree, compCounter);
 
     }
 
