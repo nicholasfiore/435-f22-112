@@ -58,22 +58,42 @@ public class Graph {
     //Prints the maxtrix representation of the graph
     public void printMatrix() {
         int size = verticies.size();
-        int i, j, k;
+        int i, j;
         matrix = new String[size + 1][size + 1];
         matrix[0][0] = " ";
         //creates the "labels" of the matrix
+        for (i = 0; i < matrix.length - 1; i++) {
+            matrix[i + 1][0] = verticies.get(i).getId() + "";
+            matrix[0][i + 1] = verticies.get(i).getId() + "";
+        }
+
+        //initializes the matrix to have no adjacencies, marked with a period
         for (i = 1; i < matrix.length; i++) {
-            matrix[verticies.get(i).getId()][0] = i + "";
-            matrix[0][verticies.get(i).getId()] = i + "";
+            for (j = 1; j < matrix[0].length; j++) {
+                matrix[i][j] = ".";
+            }
         }
         
-        //
-        for (j = 0; j < verticies.size(); j++) {
-            Vertex vert = verticies.get(j);
-            for (k = 0; 0 < vert.getNeighborSize(); j++) {
-                int id = vert.getNeighbor(k).getId();
-                int index = Search.linearSearchReturnIndex(verticies, id);
+        //adds all adjacencies to the matrix, marked by a 1
+        for (i = 0; i < verticies.size(); i++) {
+            Vertex vert = verticies.get(i);
+            for (j = 0; j < vert.getNeighborSize(); j++) {
+                Vertex neighbor = vert.getNeighbor(j);
+                int vertIndex = Search.linearSearchReturnIndex(verticies, vert.getId());
+                int neighborIndex = Search.linearSearchReturnIndex(verticies, neighbor.getId());
+
+                matrix[vertIndex + 1][neighborIndex + 1] = "1";
+                matrix[neighborIndex + 1][vertIndex + 1] = "1";
             }
+        }
+
+        //prints the matrix
+        for (i = 0; i < matrix.length; i++) {
+            for (j = 0; j < matrix[0].length; j++) {
+                System.out.print(matrix[i][j] + " ");
+                
+            }
+            System.out.println();
         }
     }
 }

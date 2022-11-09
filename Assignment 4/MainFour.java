@@ -19,19 +19,22 @@ public class MainFour {
         //variable to store comparisons 
         int[] compCounter = new int[1];
 
+        createGraph("graphtest.txt");
+
+
         //array to hold all the items in the magic items list
-        String[] itemList = null;
+        // String[] itemList = null;
 
-        itemList = fileToArray("magicitems.txt", itemList);
+        // itemList = fileToArray("magicitems.txt", itemList);
 
-        //array to hold the list of items that will be used to search the binary tree
-        String[] searchList = null;
+        // //array to hold the list of items that will be used to search the binary tree
+        // String[] searchList = null;
 
-        searchList = fileToArray("magicitems-find-in-bst.txt", searchList);
+        // searchList = fileToArray("magicitems-find-in-bst.txt", searchList);
         
-        Tree binarySearchTree = createBinaryTree(itemList);
+        // Tree binarySearchTree = createBinaryTree(itemList);
 
-        searchTreeFromList(searchList, binarySearchTree, compCounter);
+        // searchTreeFromList(searchList, binarySearchTree, compCounter);
 
     }
 
@@ -140,7 +143,7 @@ public class MainFour {
                     }
                 }
                 //final check to see if the next line is either empty or does not exist 
-                if (nextLine.isEmpty() || nextLine == null) { //empty space; commands for this graph are done, begin processing
+                if (nextLine == null || nextLine.isEmpty()) { //empty space; commands for this graph are done, begin processing
                     graph.printMatrix();
                 }
             }
