@@ -55,6 +55,10 @@ public class Graph {
         }
     }
 
+    public void breadthFirstSearch() {
+        
+    }
+
     //Prints the maxtrix representation of the graph
     public void printMatrix() {
         int size = verticies.size();
@@ -95,5 +99,20 @@ public class Graph {
             }
             System.out.println();
         }
+        
+        System.out.println();
+    }
+
+    public void printAdjacencyList() {
+        System.out.println("Adjaceny List");
+        for (int i = 0; i < verticies.size(); i++) {
+            Vertex vert = verticies.get(i);
+            System.out.print("[" + vert.getId() +"] ");
+            for (int j = 0; j < vert.getNeighborSize(); j++) {
+                System.out.print(vert.getNeighbor(j).getId() + " ");
+            }
+            System.out.println();
+        }
+        System.out.println();
     }
 }

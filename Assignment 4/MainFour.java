@@ -145,6 +145,8 @@ public class MainFour {
                 //final check to see if the next line is either empty or does not exist 
                 if (nextLine == null || nextLine.isEmpty()) { //empty space; commands for this graph are done, begin processing
                     graph.printMatrix();
+                    graph.printAdjacencyList();
+                    graph.depthFirstSearch(graph.getVerticies().get(0));
                 }
             }
 
