@@ -99,6 +99,7 @@ public class MainFour {
         File file = new File(fileName);
         BufferedReader input = null;
         String line;
+        String nextLine;
         try {
             //gets the path of the current file in order to get the # of lines
             Path path = Paths.get(file.getName());
@@ -112,22 +113,23 @@ public class MainFour {
             Vertex vert1 = null;
             Vertex vert2 = null;
 
-
+            nextLine = input.readLine();
 
             for (int i = 0; i < totalLines; i++) {
-                line = input.readLine();
+                line = nextLine;
+                nextLine = input.readLine();
                 if (line.split(" ")[0].compareTo("--") == 0) {
                     //do nothing, ignore this line as it is a comment
-                } else if (line.split(" ")[0].compareTo("new") == 0) {
+                } else if (line.split(" ")[0].compareTo("new") == 0) { //new graph
                     //create a new graph object held by the graph variable
                     graph = new Graph();
 
-                } else if (line.split(" ")[0].compareTo("add") == 0) {
-                    if (line.split(" ")[1].compareTo("vertex") == 0) {
+                } else if (line.split(" ")[0].compareTo("add") == 0) { //enters add vertex/add edge tree
+                    if (line.split(" ")[1].compareTo("vertex") == 0) { //add vertext x
                         //adds a new vertex to the graph, parsing the ID from the line given
                         vert1 = new Vertex(Integer.parseInt(line.split(" ")[2]));
                         graph.addVertex(vert1);
-                    } else if (line.split(" ")[1].compareTo("edge") == 0) {
+                    } else if (line.split(" ")[1].compareTo("edge") == 0) { //add edge x - y
                         //adds a new edge to the graph, based on the IDs parsed from the line
                             //the verticies are found by searching the graph's verticies ArrayList for a Vertex that matches the ID given in the line at both positions
                         vert1 = Search.linearSearch(graph.getVerticies(), Integer.parseInt(line.split(" ")[2]));
@@ -135,13 +137,18 @@ public class MainFour {
                         
                         graph.addEdge(vert1, vert2); //the verticies are now added as neighbors, forming an adjacency
                     }
+                } 
+                if (nextLine.isEmpty() || nextLine == null) { //empty space; commands for this graph are done, begin processing
+                    graph.printMatrix();
                 }
             }
 
         } catch(FileNotFoundException ex) {
             System.out.println("Failed to find file: " + file.getAbsolutePath());
         } catch(IOException ex) {
-            System.out.println(ex);
+            System.out.println(ex.getMessage());
+        } catch(NullPointerException ex) {
+            System.out.println(ex.getMessage());
         } catch(Exception ex) {
             System.out.println("Something went wrong.");
             System.out.println(ex.getMessage());

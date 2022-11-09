@@ -21,6 +21,14 @@ public class Vertex {
         return this.id;
     }
 
+    public Vertex getNeighbor(int index) {
+        return neighbors.get(index);
+    }
+
+    public int getNeighborSize() {
+        return neighbors.size();
+    }
+
     public boolean wasProcessed() {
         return this.processed;
     }

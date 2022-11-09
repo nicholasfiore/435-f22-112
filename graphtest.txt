@@ -1,0 +1,20 @@
+-- undirected 7-vertex 11-edge tutorial
+new graph
+add vertex 1
+add vertex 2
+add vertex 3
+add vertex 4
+add vertex 5
+add vertex 6
+add vertex 7
+add edge 1 - 2
+add edge 1 - 5
+add edge 1 - 6
+add edge 2 - 3
+add edge 2 - 5
+add edge 2 - 6
+add edge 3 - 4
+add edge 4 - 5
+add edge 5 - 6
+add edge 5 - 7
+add edge 6 - 7

@@ -4,7 +4,7 @@ public class Graph {
     /* Data Fields */
     private String name = "";
     private ArrayList<Vertex> verticies = new ArrayList<Vertex>();
-    private char[][] matrix;
+    private String[][] matrix;
 
     /* Constructors */
     //Default, empty constuctor
@@ -40,16 +40,31 @@ public class Graph {
         vert1.addNeighbor(vert2);
         vert2.addNeighbor(vert1);
     }
+
+    //Performs a depth-first search of the graph
+    public void depthFirstSearch(Vertex vert) {
+        if (!vert.wasProcessed()) {
+            System.out.print(vert.getId() + " ");
+            vert.setProcessed(true);
+        }
+        for (int i = 0; i < vert.getNeighborSize(); i++) {
+            Vertex neighbor = vert.getNeighbor(i);
+            if (!neighbor.wasProcessed()) {
+                depthFirstSearch(neighbor);
+            }
+        }
+    }
+
     //Prints the maxtrix representation of the graph
     public void printMatrix() {
         int size = verticies.size();
         int i, j;
-        matrix = new char[size + 1][size + 1];
-        matrix[0][0] = ' ';
+        matrix = new String[size + 1][size + 1];
+        matrix[0][0] = " ";
         //creates the "labels" of the matrix
         for (i = 1; i < matrix.length; i++) {
-            matrix[i][0] = (char)(i + 48);
-            matrix[0][i] = (char)(i + 48);
+            matrix[i][0] = i + "";
+            matrix[0][i] = i + "";
         }
         
     }
