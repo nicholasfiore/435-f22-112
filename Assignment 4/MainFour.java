@@ -147,6 +147,7 @@ public class MainFour {
                     graph.printMatrix();
                     graph.printAdjacencyList();
                     graph.depthFirstSearch(graph.getVerticies().get(0));
+                    graph.breadthFirstSearch(graph.getVerticies().get(0));
                 }
             }
 

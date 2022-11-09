@@ -53,10 +53,25 @@ public class Graph {
                 depthFirstSearch(neighbor);
             }
         }
+        System.out.println();
     }
 
-    public void breadthFirstSearch() {
-        
+    //Performs a breadth-first search of the graph
+    public void breadthFirstSearch(Vertex vert) {
+        VertQueue searchQueue = new VertQueue();
+        searchQueue.enqueue(new VertNode(vert));
+        vert.setProcessed(true);
+        while (!searchQueue.isEmpty()) {
+            Vertex currVert = searchQueue.dequeue().getMyVertex();
+            System.out.print(currVert.getId());
+            for (int i = 0; i < currVert.getNeighborSize(); i++) {
+                Vertex neighbor = currVert.getNeighbor(i);
+                if (!neighbor.wasProcessed()) {
+                    searchQueue.enqueue(new VertNode(neighbor));
+                    neighbor.setProcessed(true);
+                }
+            }
+        }
     }
 
     //Prints the maxtrix representation of the graph
