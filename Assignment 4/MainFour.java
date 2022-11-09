@@ -115,6 +115,7 @@ public class MainFour {
 
             nextLine = input.readLine();
 
+            //Command parsing. Goes through each line and determines what command is being used based on strings.
             for (int i = 0; i < totalLines; i++) {
                 line = nextLine;
                 nextLine = input.readLine();
@@ -125,19 +126,20 @@ public class MainFour {
                     graph = new Graph();
 
                 } else if (line.split(" ")[0].compareTo("add") == 0) { //enters add vertex/add edge tree
-                    if (line.split(" ")[1].compareTo("vertex") == 0) { //add vertext x
+                    if (line.split(" ")[1].compareTo("vertex") == 0) { //add vertex x
                         //adds a new vertex to the graph, parsing the ID from the line given
                         vert1 = new Vertex(Integer.parseInt(line.split(" ")[2]));
                         graph.addVertex(vert1);
                     } else if (line.split(" ")[1].compareTo("edge") == 0) { //add edge x - y
                         //adds a new edge to the graph, based on the IDs parsed from the line
                             //the verticies are found by searching the graph's verticies ArrayList for a Vertex that matches the ID given in the line at both positions
-                        vert1 = Search.linearSearch(graph.getVerticies(), Integer.parseInt(line.split(" ")[2]));
-                        vert2 = Search.linearSearch(graph.getVerticies(), Integer.parseInt(line.split(" ")[4]));
+                        vert1 = Search.linearSearchReturnVertex(graph.getVerticies(), Integer.parseInt(line.split(" ")[2]));
+                        vert2 = Search.linearSearchReturnVertex(graph.getVerticies(), Integer.parseInt(line.split(" ")[4]));
                         
                         graph.addEdge(vert1, vert2); //the verticies are now added as neighbors, forming an adjacency
                     }
-                } 
+                }
+                //final check to see if the next line is either empty or does not exist 
                 if (nextLine.isEmpty() || nextLine == null) { //empty space; commands for this graph are done, begin processing
                     graph.printMatrix();
                 }

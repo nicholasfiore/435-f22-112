@@ -17,8 +17,8 @@ public class Search {
         return i;
     }
 
-    //sequentially searches the list for the key, returning the index of where it was found. If it was not found, returns -1. Version for ArrayLists.
-    public static Vertex linearSearch(ArrayList<Vertex> list, int key) {
+    //sequentially searches the list for the key, returning the vertex with that value. Version for ArrayLists.
+    public static Vertex linearSearchReturnVertex(ArrayList<Vertex> list, int key) {
         int i = 0;
         while (i < list.size() && list.get(i).getId() != key) {
             i++;
@@ -26,6 +26,17 @@ public class Search {
         if (i >= list.size())
             i = -1;
         return list.get(i);
+    }
+
+    //sequentially searches the list for the key, returning the index of where it was found. If it was not found, returns -1. version for ArrayLists
+    public static int linearSearchReturnIndex(ArrayList<Vertex> list, int key) {
+        int i = 0;
+        while (i < list.size() && list.get(i).getId() != key) {
+            i++;
+        }
+        if (i >= list.size())
+            i = -1;
+        return i;
     }
 
     //recursively searches the list by comparing the key to the item at the middle of the list, then choosing half of the array to

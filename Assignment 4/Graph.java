@@ -58,14 +58,22 @@ public class Graph {
     //Prints the maxtrix representation of the graph
     public void printMatrix() {
         int size = verticies.size();
-        int i, j;
+        int i, j, k;
         matrix = new String[size + 1][size + 1];
         matrix[0][0] = " ";
         //creates the "labels" of the matrix
         for (i = 1; i < matrix.length; i++) {
-            matrix[i][0] = i + "";
-            matrix[0][i] = i + "";
+            matrix[verticies.get(i).getId()][0] = i + "";
+            matrix[0][verticies.get(i).getId()] = i + "";
         }
         
+        //
+        for (j = 0; j < verticies.size(); j++) {
+            Vertex vert = verticies.get(j);
+            for (k = 0; 0 < vert.getNeighborSize(); j++) {
+                int id = vert.getNeighbor(k).getId();
+                int index = Search.linearSearchReturnIndex(verticies, id);
+            }
+        }
     }
 }
