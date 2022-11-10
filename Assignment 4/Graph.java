@@ -51,19 +51,19 @@ public class Graph {
             Vertex neighbor = vert.getNeighbor(i);
             if (!neighbor.wasProcessed()) {
                 depthFirstSearch(neighbor);
-            }
+            }   
         }
-        System.out.println();
     }
 
     //Performs a breadth-first search of the graph
     public void breadthFirstSearch(Vertex vert) {
+        System.out.print("Breadth-First Traversal: ");
         VertQueue searchQueue = new VertQueue();
         searchQueue.enqueue(new VertNode(vert));
         vert.setProcessed(true);
         while (!searchQueue.isEmpty()) {
             Vertex currVert = searchQueue.dequeue().getMyVertex();
-            System.out.print(currVert.getId());
+            System.out.print(currVert.getId() + " ");
             for (int i = 0; i < currVert.getNeighborSize(); i++) {
                 Vertex neighbor = currVert.getNeighbor(i);
                 if (!neighbor.wasProcessed()) {
@@ -71,6 +71,14 @@ public class Graph {
                     neighbor.setProcessed(true);
                 }
             }
+        }
+        System.out.println();
+    }
+
+    //resets the "processed" status on all verticies in a graph.
+    public void resetProcessing() {
+        for (int i = 0; i < verticies.size(); i++) {
+            verticies.get(i).setProcessed(false);
         }
     }
 
@@ -119,7 +127,7 @@ public class Graph {
     }
 
     public void printAdjacencyList() {
-        System.out.println("Adjaceny List");
+        System.out.println("Adjacency List");
         for (int i = 0; i < verticies.size(); i++) {
             Vertex vert = verticies.get(i);
             System.out.print("[" + vert.getId() +"] ");

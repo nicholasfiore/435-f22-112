@@ -146,8 +146,14 @@ public class MainFour {
                 if (nextLine == null || nextLine.isEmpty()) { //empty space; commands for this graph are done, begin processing
                     graph.printMatrix();
                     graph.printAdjacencyList();
+                    
+                    System.out.print("Depth-First Traversal: ");
                     graph.depthFirstSearch(graph.getVerticies().get(0));
+                    graph.resetProcessing();
+                    System.out.println();
+                    
                     graph.breadthFirstSearch(graph.getVerticies().get(0));
+                    graph.resetProcessing();
                 }
             }
 

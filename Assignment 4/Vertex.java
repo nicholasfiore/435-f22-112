@@ -14,6 +14,7 @@ public class Vertex {
     //constuctor with ID parameter
     public Vertex(int idNum) {
         this.id = idNum;
+        this.processed = false;
     }
 
     /* Accessors/Mutators */
