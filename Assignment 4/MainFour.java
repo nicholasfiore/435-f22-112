@@ -19,22 +19,24 @@ public class MainFour {
         //variable to store comparisons 
         int[] compCounter = new int[1];
 
-        createGraph("graphtest.txt");
+        createGraph("graphs1.txt");
 
 
         //array to hold all the items in the magic items list
-        // String[] itemList = null;
+        String[] itemList = null;
 
-        // itemList = fileToArray("magicitems.txt", itemList);
+        itemList = fileToArray("magicitems.txt", itemList);
 
         // //array to hold the list of items that will be used to search the binary tree
-        // String[] searchList = null;
+        String[] searchList = null;
 
-        // searchList = fileToArray("magicitems-find-in-bst.txt", searchList);
+        searchList = fileToArray("magicitems-find-in-bst.txt", searchList);
         
-        // Tree binarySearchTree = createBinaryTree(itemList);
+        Tree binarySearchTree = createBinaryTree(itemList);
 
-        // searchTreeFromList(searchList, binarySearchTree, compCounter);
+        int average = searchTreeFromList(searchList, binarySearchTree, compCounter);
+
+        System.out.println("Average # of comparisons: " + average);
 
     }
 
