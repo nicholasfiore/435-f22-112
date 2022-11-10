@@ -66,12 +66,18 @@ public class TreeNode {
 
     /* Functions */
     //Checks to see if the Node object has a myLeft or myRight value != null. Returns boolean depending on result.
-    public boolean hasNext() {
-        if (this.getMyLeft() != null || this.getMyRight() != null) {
+    public boolean hasLeft() {
+        if (this.getMyLeft() != null)
             return true;
-        } else {
+        else
             return false;
-        }
+    }
+
+    public boolean hasRight() {
+        if (this.getMyRight() != null)
+            return true;
+        else
+            return false;
     }
 
 }

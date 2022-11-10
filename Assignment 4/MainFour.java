@@ -34,6 +34,11 @@ public class MainFour {
         
         Tree binarySearchTree = createBinaryTree(itemList);
 
+        System.out.print("In-Order Traversal: ");
+        inOrderTraversal(binarySearchTree.getMyRoot());
+        System.out.println();
+        System.out.println();
+
         int average = searchTreeFromList(searchList, binarySearchTree, compCounter);
 
         System.out.println("Average # of comparisons: " + average);
@@ -82,6 +87,7 @@ public class MainFour {
         for (int i = 0; i < list.length; i++) {
             tree.insert(new TreeNode(list[i]));
         }
+        System.out.println();
         return tree;
     }
 
@@ -95,6 +101,18 @@ public class MainFour {
         }
         average = total / list.length;
         return average;
+    }
+
+    //searches a tree using in-order traversal
+    public static void inOrderTraversal(TreeNode node) {
+        if (node.hasLeft()) {
+            System.out.print("[" + node.getMyString() + "] ");
+            inOrderTraversal(node.getMyLeft());
+        }
+        if (node.hasRight()) {
+            System.out.print("[" + node.getMyString() + "] ");
+            inOrderTraversal(node.getMyRight());
+        }
     }
     
 
