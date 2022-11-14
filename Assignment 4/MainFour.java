@@ -6,16 +6,12 @@ import java.nio.file.Paths;
 
 
 /* 
- * The purpose of this program is TODO
+ * The purpose of this program is to explore both graphs and the ways to traverse them, as well as create a binary tree to be used for
+ * the purpose of searching, similar to a binary search.
  */
 
 public class MainFour {
     public static void main(String[] args) throws IOException {
-        //int variables to store the total lines of a .txt, then ints to store them per file
-        int magicLines; //lines in magicitems.txt
-        int treeLines; //lines in magicitems-find-in-bst.txt
-        int graphLines; //lines in graphs1.txt
-
         //variable to store comparisons 
         int[] compCounter = new int[1];
 
@@ -105,14 +101,15 @@ public class MainFour {
 
     //searches a tree using in-order traversal
     public static void inOrderTraversal(TreeNode node) {
-        if (node.hasLeft()) {
-            System.out.print("[" + node.getMyString() + "] ");
-            inOrderTraversal(node.getMyLeft());
-        }
-        if (node.hasRight()) {
-            System.out.print("[" + node.getMyString() + "] ");
-            inOrderTraversal(node.getMyRight());
-        }
+        if(node == null)
+            return;
+
+        inOrderTraversal(node.getMyLeft());
+        
+        System.out.print("[" + node.getMyString() + "] ");
+        
+        inOrderTraversal(node.getMyRight());
+        
     }
     
 
