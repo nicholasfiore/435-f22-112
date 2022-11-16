@@ -109,7 +109,6 @@ public class MainFour {
         System.out.print("[" + node.getMyString() + "] ");
         
         inOrderTraversal(node.getMyRight());
-        
     }
     
 
