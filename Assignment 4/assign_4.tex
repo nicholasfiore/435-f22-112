@@ -1,0 +1,782 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% CMPT 435
+% Fall 2022
+% Assignment 4
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Short Sectioned Assignment
+% LaTeX Template
+% Version 1.0 (5/5/12)
+%
+% This template has been downloaded from: http://www.LaTeXTemplates.com
+% Original author: % Frits Wenneker (http://www.howtotex.com)
+% License: CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+% Modified by Alan G. Labouseur  - alan@labouseur.com
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[letterpaper, 10pt,DIV=13]{scrartcl} 
+
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\usepackage[english]{babel} % English language/hyphenation
+\usepackage{amsmath,amsfonts,amsthm,xfrac} % Math packages
+\usepackage{sectsty} % Allows customizing section commands
+\usepackage{graphicx}
+\usepackage[lined,linesnumbered,commentsnumbered]{algorithm2e}
+\usepackage{listings}
+\usepackage{parskip}
+\usepackage{lastpage}
+
+\usepackage{sourcecodepro} %defaults to the ttyfamily font
+
+\allsectionsfont{\normalfont\scshape} % Make all section titles in default font and small caps.
+
+\usepackage{fancyhdr} % Custom headers and footers
+\pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
+
+\fancyhead{} % No page header - if you want one, create it in the same way as the footers below
+\fancyfoot[L]{} % Empty left footer
+\fancyfoot[C]{} % Empty center footer
+\fancyfoot[R]{page \thepage\ of \pageref{LastPage}} % Page numbering for right footer
+
+\renewcommand{\headrulewidth}{0pt} % Remove header underlines
+\renewcommand{\footrulewidth}{0pt} % Remove footer underlines
+\setlength{\headheight}{13.6pt} % Customize the height of the header
+
+\numberwithin{equation}{section} % Number equations within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{figure}{section} % Number figures within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{table}{section} % Number tables within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs.
+
+\binoppenalty=3000
+\relpenalty=3000
+
+\lstset{numbers=left, numberstyle=\tiny, stepnumber=1, numbersep=5pt, basicstyle=\footnotesize\ttfamily}
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+\title{	
+   \normalfont \normalsize 
+   \textsc{CMPT 435 - Fall 2022 - Dr. Labouseur} \\[10pt] % Header stuff.
+   \horrule{0.5pt} \\[0.25cm] 	% Top horizontal rule
+   \huge Assignment Four  \\     	    % Assignment title
+   \horrule{0.5pt} \\[0.25cm] 	% Bottom horizontal rule
+}
+
+\author{Nicholas Fiore \\ \normalsize Nicholas.Fiore@Marist.edu}
+
+\date{\normalsize\today} 	% Today's date.
+
+\begin{document}
+\maketitle % Print the title
+
+%----------------------------------------------------------------------------------------
+%   start PROBLEM ONE
+%----------------------------------------------------------------------------------------
+\section{Graphs}
+\subsection{Graphing}
+Graphs are a data structure with varying uses. Its topology is useful for representations of networks, maps, or similar diagrams. Additionally, they can be useful for various data sets which have elements with multiple dependencies.
+
+Graphs are akin to linked list and other similar data structures in the way that they function with node-like objects that are then linked to other node-like objects. The largest difference that separates it from lists and trees is the way that these nodes, called vertices in graphs, can connect to each other. With lists, there is a single connection from the parent and a single connection to the child. Trees are similar, but can have multiple "child" vertices. In graphs, however, vertices are not limited to the child and parent relationship. A vertex from any part of the graph can connect to any other vertex within the graph, regardless of what vertices it might already be attached to. This can create the more 3D structure of a graph, including things like loops which aren't possible on a tree (otherwise I wouldn't be a tree, it would be a graph).
+
+Graphing in this assignment was implemented in a simple way. A $Vertex$ class was created, holding an integer id, a boolean to check if it was processed, and an ArrayList of Vertex objects to represent neighboring vertices. For simplicity, $Vertex$ objects that hold each other in their $neighbors$ table are considered to have an edge between them. A $Graph$ class was also created to represent a physical graph, composed of many Vertex objects. The $Graph$ object holds an ArrayList of all the $Vertex$ objects within the graph and a name. There is also a String 2D array to be used for matrix printing, which will be touched on later. There are a few methods to this that allow it to function, including $addVertex()$ and $addEdge()$, but also things such as $printMatrix()$ and $printAdjacencyList()$, which print matrix and adjacency list representations of the graph, respectively.
+
+\subsection{Breadth-First and Depth-First Searching/Traversal}
+Linked lists and trees can be pretty easily traversed linearly, as there is only a forward and sometimes backwards to move. Graphs, however, are more complicated, as they can contain loops that make linearly searching impossible due to infinite looping potential. Therefore, there needs to be a way to keep track of which vertices in the graph have already been considered. Breadth-first and depth-first searching are the two ways that these are done.
+
+The ideas of breadth-first (BFS) and depth-first searching (DFS) are sort of opposite ways to achieve the same concept, which is to search or traverse a graph (or a tree, which these methods can also be implemented for, because a tree is technically a graph). Both BFS and DFS utilize the $processed$ boolean in the $Vertex$ objects to keep track of which ones in the graph have already been processed. 
+
+\subsubsection{Breadth-First}
+Breadth-first works based on the idea of finding and printing out all the adjacent vertices to the initial vertex, and then finding all the adjacent vertices of those vertices and printing the ones \textit{\textbf{not yet processed}}, repeating this process until all of the vertices in the graph have been processed. This is done by adding each vertex found as an adjacency to a Queue. As adjacencies are found, they are added to the Queue. Once no more adjacencies are found for the current node, the vertex at the front of the Queue is dequeued and printed, and its adjacencies are found, adding them to the Queue so long as they have not been processed already.
+
+Breadth-first searching has an asymptomatic run-time that is a bit different from traditional Big-Oh classifications. Its runtime is considered to be $O(|V| + |E|)$, $V$ being the total number of vertices in the graph and $E$ being the total number of edges. This is due to the fact that every vertex and every edge will only ever be checked once, due to the nature of the processing. Simplifying this into more formal Big-Oh classes would make this a $O(n)$.
+
+\subsubsection{Depth-First}
+Depth-first searching takes the idea of breadth-first but works in the opposite direction. Instead of looking for the close adjacencies, it moves towards finding the furthest it can go by taking a single path and never repeating vertices. This is handled through a recursive function. It takes in a vertex and then prints that vertex and sets its $processed$ boolean to $true$. Then it enters a for loop that iterates through all the neighbors of the current vertex. If the neighbor vertex it currently is looking at is not currently processed ($processed$ is set to false), it will call the $depthFirstSearch()$ function with that neighbor vertex, repeating the process. This will happen recursively until every vertex that is connected in that loop or line is printed. As the recursive calls collapse again, any neighboring vertices that are not part of the branch or loop that had been printed already will be entered then, completely printing that branch/loop before collapsing again, until all connected vertices to the original starting vertex has been printed.
+
+Like breadth-first searching, depth-first searching has a run-time of $O(|V| + |E|)$. This if for the same reason that it is in BFS: every edge and every vertex is checked only once. Simplified, this again gives the algorithm a run-time of $O(n)$.
+
+\subsection{Binary Trees}
+Trees are a sort of data structure that are similar to linked lists, but instead of only having one next value, they can have multiple. The number of "children" that a Node in a tree can have depends on the type of tree. In the case of binary trees, any Node can have 0, 1, or 2 children. Any more and the tree is no longer binary. This type of tree is binary because traversing the tree will always present two options to go, if there is anything else in either direction (the lack of an option is technically not a lack of choice but rather a forced choice). When putting a list of items into a binary tree, the general distribution of the items in the list will create something close to a balanced tree, which is a tree in which the left and right subtree of any particular tree has a height difference of no more than one level. This includes all subtrees of said original tree.
+
+Due to the nature of the binary tree, searching the tree becomes very similar to the binary search algorithm used with normal arrays or lists. The algorithm itself looks similar to a linear search, however, each time a Node is compared to the key, the algorithm will choose a branch to take. With a properly balanced binary tree, taking a branch will cause roughly half of the other options in the tree to be eliminated. This happens every single time, halving continuously until the item is found or an end of the tree is reached. For this reason, with a balanced binary tree, the asymptomatic run-time for a binary search tree is the same as a binary search, standing at $O(log(n))$. One of the benefits of a BST over normal binary search is that a BST does not need a sorted list to function (and actually prefers it not to be sorted), and therefore does not require the overhead of a sorting function.
+
+As a caveat, however, poorly balanced binary tree can cause the run-time to degrade. The worst case scenario for this would be entering a sorted list into the binary tree. Since it is already sorted, the tree will always choose one option when placing the next element, causing a single, very long branch that always only has one child. In this worst case, the run-time of the algorithm degrades to $O(n)$ as the long branch is little more than a glorified linked list.
+%----------------------------------------------------------------------------------------
+%   Appendix
+%----------------------------------------------------------------------------------------
+\pagebreak
+\section{Appendix}
+
+\subsection{Vertex.java}
+\begin{lstlisting}[frame=single, language=java, breaklines]  
+import java.util.ArrayList;
+
+public class Vertex {
+    /* Data Fields */
+    private int id;
+    private boolean processed = false;
+    private ArrayList<Vertex> neighbors = new ArrayList<Vertex>();
+
+    /* Constuctors */
+    public Vertex() {
+        //default empty constructor
+    }
+
+    //constuctor with ID parameter
+    public Vertex(int idNum) {
+        this.id = idNum;
+        this.processed = false;
+    }
+
+    /* Accessors/Mutators */
+    public int getId() {
+        return this.id;
+    }
+
+    public Vertex getNeighbor(int index) {
+        return neighbors.get(index);
+    }
+
+    public int getNeighborSize() {
+        return neighbors.size();
+    }
+
+    public boolean wasProcessed() {
+        return this.processed;
+    }
+
+    public void setId(int newId) {
+        this.id = newId;
+    }
+
+    public void setProcessed(boolean bool) {
+        this.processed = bool;
+    }
+
+    /* Functions */
+    //adds an adjacent vertex as a neighbor to the neighbors ArrayList
+    public void addNeighbor(Vertex neighbor) {
+        this.neighbors.add(neighbor);
+    }
+}
+\end{lstlisting}
+
+\subsection{Graph.java}
+\begin{lstlisting}[frame=single, language=java, breaklines]  
+import java.util.*;
+
+public class Graph {
+    /* Data Fields */
+    private String name = "";
+    private ArrayList<Vertex> verticies = new ArrayList<Vertex>();
+    private String[][] matrix;
+
+    /* Constructors */
+    //Default, empty constuctor
+    public Graph() {
+
+    }
+    
+    //constuctor with name parameter
+    public Graph(String newName) {
+        this.name = newName;
+    }
+
+    /* Accesors/Mutators */
+    public String getName() {
+        return this.name;
+    }
+
+    public ArrayList<Vertex> getVerticies() {
+        return verticies;
+    }
+
+    public void setName(String newName) {
+        this.name = newName;
+    }
+
+    /* Functions */
+    //Adds a vertex to the verticies ArrayList
+    public void addVertex(Vertex vert) {
+        this.verticies.add(vert);
+    }
+    //Adds an edge between two verticies by adding each vertex to the other's list of neighbors
+    public void addEdge(Vertex vert1, Vertex vert2) {
+        vert1.addNeighbor(vert2);
+        vert2.addNeighbor(vert1);
+    }
+
+    //Performs a depth-first search of the graph
+    public void depthFirstSearch(Vertex vert) {
+        if (!vert.wasProcessed()) {
+            System.out.print(vert.getId() + " ");
+            vert.setProcessed(true);
+        }
+        for (int i = 0; i < vert.getNeighborSize(); i++) {
+            Vertex neighbor = vert.getNeighbor(i);
+            if (!neighbor.wasProcessed()) {
+                depthFirstSearch(neighbor);
+            }   
+        }
+    }
+
+    //Performs a breadth-first search of the graph
+    public void breadthFirstSearch(Vertex vert) {
+        System.out.print("Breadth-First Traversal: ");
+        VertQueue searchQueue = new VertQueue();
+        searchQueue.enqueue(new VertNode(vert));
+        vert.setProcessed(true);
+        while (!searchQueue.isEmpty()) {
+            Vertex currVert = searchQueue.dequeue().getMyVertex();
+            System.out.print(currVert.getId() + " ");
+            for (int i = 0; i < currVert.getNeighborSize(); i++) {
+                Vertex neighbor = currVert.getNeighbor(i);
+                if (!neighbor.wasProcessed()) {
+                    searchQueue.enqueue(new VertNode(neighbor));
+                    neighbor.setProcessed(true);
+                }
+            }
+        }
+        System.out.println();
+    }
+
+    //resets the "processed" status on all verticies in a graph.
+    public void resetProcessing() {
+        for (int i = 0; i < verticies.size(); i++) {
+            verticies.get(i).setProcessed(false);
+        }
+    }
+
+    //Prints the maxtrix representation of the graph
+    public void printMatrix() {
+        int size = verticies.size();
+        int i, j;
+        matrix = new String[size + 1][size + 1];
+        matrix[0][0] = " ";
+        //creates the "labels" of the matrix
+        for (i = 0; i < matrix.length - 1; i++) {
+            matrix[i + 1][0] = verticies.get(i).getId() + "";
+            matrix[0][i + 1] = verticies.get(i).getId() + "";
+        }
+
+        //initializes the matrix to have no adjacencies, marked with a period
+        for (i = 1; i < matrix.length; i++) {
+            for (j = 1; j < matrix[0].length; j++) {
+                matrix[i][j] = ".";
+            }
+        }
+        
+        //adds all adjacencies to the matrix, marked by a 1
+        for (i = 0; i < verticies.size(); i++) {
+            Vertex vert = verticies.get(i);
+            for (j = 0; j < vert.getNeighborSize(); j++) {
+                Vertex neighbor = vert.getNeighbor(j);
+                int vertIndex = Search.linearSearchReturnIndex(verticies, vert.getId());
+                int neighborIndex = Search.linearSearchReturnIndex(verticies, neighbor.getId());
+
+                matrix[vertIndex + 1][neighborIndex + 1] = "1";
+                matrix[neighborIndex + 1][vertIndex + 1] = "1";
+            }
+        }
+
+        //prints the matrix
+        for (i = 0; i < matrix.length; i++) {
+            for (j = 0; j < matrix[0].length; j++) {
+                System.out.print(matrix[i][j] + " ");
+                
+            }
+            System.out.println();
+        }
+        
+        System.out.println();
+    }
+
+    public void printAdjacencyList() {
+        System.out.println("Adjacency List");
+        for (int i = 0; i < verticies.size(); i++) {
+            Vertex vert = verticies.get(i);
+            System.out.print("[" + vert.getId() +"] ");
+            for (int j = 0; j < vert.getNeighborSize(); j++) {
+                System.out.print(vert.getNeighbor(j).getId() + " ");
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
+}
+\end{lstlisting}
+
+Graph and Vertex also utilize slightly modified Queue and Node class (VertQueue and VertNode), however the modifications are only to the datatype so I didn't bother adding them here.
+
+\subsection{TreeNode.java}
+\begin{lstlisting}[frame=single, language=java, breaklines]  
+/*
+ * The Node class is used to created linked lists of objects in order to more variably control the size of said list without being locked into an array
+ * This is a modified version of the Node class to be used to construct binary trees.
+ */
+public class TreeNode {
+    /* Data Fields */
+    private String myString = "";
+    private TreeNode myParent = null;
+    private TreeNode myLeft = null;
+    private TreeNode myRight = null;
+
+    /* Constructors */
+    //No-arg (default) constructor for creating a default Node object
+    public TreeNode() {}
+
+    //Partial constructor for initializing only the Item within the Node
+    public TreeNode(String str) {
+        myString = str;
+    }
+
+    //Full constuctor for creating a Node object and assigning an character name and next Node object pointer for left and right
+    public TreeNode(String str, TreeNode left, TreeNode right) {
+        myString = str;
+        myLeft = left;
+        myRight = right;
+    }
+
+    /* Accessors and Mutators */
+    //Returns the character String of the Node object
+    public String getMyString() {
+        return myString;
+    }
+
+    public TreeNode getMyParent() {
+        return myParent;
+    }
+
+    //Returns the pointer for the next Node object to the left
+    public TreeNode getMyLeft() {
+        return myLeft;
+    }
+
+    //Returns the pointer for the next Node object to the right
+    public TreeNode getMyRight() {
+        return myRight;
+    }
+
+    //Changes the value of the character String of a Node object to a new String
+    public void setMyString(String myString) {
+        this.myString = myString;
+    }
+
+    public void setMyParent(TreeNode myParent) {
+        this.myParent = myParent;
+    }
+
+    //Changes the pointer of the left pointer of a Node object to a new pointer to a node Object (or NULL)
+    public void setMyLeft(TreeNode myLeft) {
+        this.myLeft = myLeft;
+    }
+
+    //Changes the pointer of the right pointer of a Node object to a new pointer to a node Object (or NULL)
+    public void setMyRight(TreeNode myRight) {
+        this.myRight = myRight;
+    }
+
+    /* Functions */
+    //Checks to see if the Node object has a myLeft or myRight value != null. Returns boolean depending on result.
+    public boolean hasLeft() {
+        if (this.getMyLeft() != null)
+            return true;
+        else
+            return false;
+    }
+
+    public boolean hasRight() {
+        if (this.getMyRight() != null)
+            return true;
+        else
+            return false;
+    }
+
+}
+\end{lstlisting}
+
+\subsection{Tree.java}
+\begin{lstlisting}[frame=single, language=java, breaklines]  
+public class Tree {
+    /* Data Field */
+    private TreeNode myRoot;
+
+    /* Constructors */
+    //empty default constructor
+    public Tree() {
+        
+    }
+    //constructor for starting with the root node
+    public Tree(TreeNode root) {
+        myRoot = root;
+    }
+
+    /* Accessor/Mutator */
+    public TreeNode getMyRoot() {
+        return this.myRoot;
+    }
+
+    public void setMyRoot(TreeNode myRoot) {
+        this.myRoot = myRoot;
+    }
+
+    /* Functions */
+    public void insert(TreeNode newNode) {
+        TreeNode trailing = null;
+        TreeNode current = this.myRoot;
+        System.out.print("Inserting " + newNode.getMyString() + ": ");
+        while (current != null) {
+            trailing = current;
+            if ((newNode.getMyString().toUpperCase()).compareTo(current.getMyString().toUpperCase()) < 0) {
+                current = current.getMyLeft();
+                System.out.print("L");
+            }
+            else {//must be >=
+                current = current.getMyRight();
+                System.out.print("R");
+            }
+            System.out.print(" ");
+        }
+        newNode.setMyParent(trailing);
+        if (trailing != null) {
+            if ((newNode.getMyString().toUpperCase()).compareTo(trailing.getMyString().toUpperCase()) < 0) {
+                trailing.setMyLeft(newNode);
+            }
+            else { // >=
+                trailing.setMyRight(newNode);
+            }
+        }
+        else {
+            this.setMyRoot(newNode);
+            System.out.print("Root.");
+        }
+    System.out.println();
+    }
+}
+\end{lstlisting}
+
+\subsection{Search.java}
+Mostly just the addition of $searchBinaryTree()$.
+\begin{lstlisting}[frame=single, language=java, breaklines]
+import java.util.ArrayList;
+/*
+ * A class used to maintain static methods for searching algorithms (namely linear search and binary search). Linear search is iterative,
+ * while binary search is recursive.
+ */
+public class Search {
+
+    //sequentially searches the list for the key, returning the index of where it was found. If it was not found, returns -1.
+    public static int linearSearch(String[] arr, String key, int[] counter) {
+        int i = 0;
+        while (i < arr.length && arr[i] != key) {
+            i++;
+            counter[0]++;
+        }
+        if (i >= arr.length)
+            i = -1;
+        return i;
+    }
+
+    //sequentially searches the list for the key, returning the vertex with that value. Version for ArrayLists.
+    public static Vertex linearSearchReturnVertex(ArrayList<Vertex> list, int key) {
+        int i = 0;
+        while (i < list.size() && list.get(i).getId() != key) {
+            i++;
+        }
+        if (i >= list.size())
+            i = -1;
+        return list.get(i);
+    }
+
+    //sequentially searches the list for the key, returning the index of where it was found. If it was not found, returns -1. version for ArrayLists
+    public static int linearSearchReturnIndex(ArrayList<Vertex> list, int key) {
+        int i = 0;
+        while (i < list.size() && list.get(i).getId() != key) {
+            i++;
+        }
+        if (i >= list.size())
+            i = -1;
+        return i;
+    }
+
+    //recursively searches the list by comparing the key to the item at the middle of the list, then choosing half of the array to
+    //then search depending on whether the key is lesser or greater than the element at the middle. If the element is found, returns
+    //the index, otherwise returns -1.
+    public static int binarySearch(String[] arr, int startIndex, int endIndex, String key, int[] counter) {
+        int retVal;
+        int midIndex = (endIndex + startIndex) / 2;
+        if (startIndex > endIndex) {
+            retVal = -1;
+        } else if (key.toUpperCase().compareTo(arr[midIndex].toUpperCase()) == 0) {
+            counter[0]++;
+            retVal = midIndex;
+        } else if (key.toUpperCase().compareTo(arr[midIndex].toUpperCase()) < 0) {
+            counter[0]++;
+            retVal = binarySearch(arr, startIndex, midIndex - 1, key, counter);
+        } else {
+            counter[0]++;
+            retVal = binarySearch(arr, midIndex + 1, endIndex, key, counter);
+        }
+        return retVal;
+    }
+
+    public static int binarySearchIt(String[] arr, int startIndex, int endIndex, String key, int[] counter) {
+        int low = startIndex;
+        int high = (endIndex) - startIndex;
+        while (low < high) {
+            int mid = (low + high) / 2;
+            if (key.compareTo(arr[mid]) <= 0) {
+                high = mid;
+            } else {
+                low = mid + 1;
+            }
+            counter[0]++;
+        }
+        return high;
+    }
+
+    //searches a binary tree based on a list of keys to compare. Functions very similarly to binary search due to the nature of a binary tree.
+    public static boolean searchBinaryTree(Tree bst, String key, int[] comparisons) {
+        boolean retVal = false;
+        TreeNode root = bst.getMyRoot();
+        TreeNode current = root;
+        comparisons[0] = 0;
+        System.out.print("Searching for " + key + ":");
+        while(current != null && (current.getMyString().toUpperCase()).compareTo(key.toUpperCase()) != 0) {
+            if ((current.getMyString().toUpperCase()).compareTo(key.toUpperCase()) > 0) {
+                current = current.getMyLeft();
+                System.out.print(" L");
+                comparisons[0]++;
+            } else {
+                current = current.getMyRight();
+                System.out.print(" R");
+                comparisons[0]++;
+            }
+            System.out.print(",");
+        }
+        if (current != null && (current.getMyString().toUpperCase()).compareTo(key.toUpperCase()) == 0) {
+            retVal = true;
+            System.out.print(" found. ");
+        } else {
+            System.out.print(" not found. ");
+        }
+        System.out.print("Comparisons made: " + comparisons[0] + "\n");
+        return retVal;
+    }
+}
+
+\end{lstlisting}
+
+\subsection{MainFour.java}
+\begin{lstlisting}[frame=single, language=java, breaklines]  
+//Utility imports
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+
+/* 
+ * The purpose of this program is to explore both graphs and the ways to traverse them, as well as create a binary tree to be used for
+ * the purpose of searching, similar to a binary search.
+ */
+
+public class MainFour {
+    public static void main(String[] args) throws IOException {
+        //variable to store comparisons 
+        int[] compCounter = new int[1];
+
+        createGraph("graphs1.txt");
+
+
+        //array to hold all the items in the magic items list
+        String[] itemList = null;
+
+        itemList = fileToArray("magicitems.txt", itemList);
+
+        // //array to hold the list of items that will be used to search the binary tree
+        String[] searchList = null;
+
+        searchList = fileToArray("magicitems-find-in-bst.txt", searchList);
+        
+        Tree binarySearchTree = createBinaryTree(itemList);
+
+        System.out.print("In-Order Traversal: ");
+        inOrderTraversal(binarySearchTree.getMyRoot());
+        System.out.println();
+        System.out.println();
+
+        int average = searchTreeFromList(searchList, binarySearchTree, compCounter);
+
+        System.out.println("Average # of comparisons: " + average);
+
+    }
+
+    //takes a file name and a list and puts each line of the file into a String in an array
+    public static String[] fileToArray(String fileName, String[] list) throws IOException {
+        long totalLines = 0;
+        File file = new File(fileName);
+        BufferedReader input = null;
+        try {
+            //gets the path of the current file in order to get the # of lines
+            Path path = Paths.get(file.getName());
+
+            input = new BufferedReader(new FileReader(fileName)); 
+
+            totalLines = Files.lines(path).count();
+
+            list = new String[(int)totalLines];
+
+            for(int i = 0; i < totalLines; i++) {
+                list[i] = input.readLine();
+            }
+
+        } catch(FileNotFoundException ex) {
+            System.out.println("Failed to find file: " + file.getAbsolutePath());
+        } catch(IOException ex) {
+            System.out.println(ex);
+        } catch(Exception ex) {
+            System.out.println("Something went wrong.");
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        } finally {
+            if (input != null) {
+                input.close();
+            }
+        }
+
+        return list;
+    }
+
+    //takes in an array of Strings and adds the entirety of the array to a Tree, before returning that Tree object.
+    public static Tree createBinaryTree(String[] list) {
+        Tree tree = new Tree();
+        for (int i = 0; i < list.length; i++) {
+            tree.insert(new TreeNode(list[i]));
+        }
+        System.out.println();
+        return tree;
+    }
+
+    //calls the searchBinaryTree function for every String in the tree, then computes the average and returns it.
+    public static int searchTreeFromList(String[] list, Tree bst, int[] comparisons) {
+        int total = 0;
+        int average;
+        for (int i = 0; i < list.length; i++) {
+            Search.searchBinaryTree(bst, list[i], comparisons);
+            total += comparisons[0];
+        }
+        average = total / list.length;
+        return average;
+    }
+
+    //searches a tree using in-order traversal
+    public static void inOrderTraversal(TreeNode node) {
+        if(node == null)
+            return;
+
+        inOrderTraversal(node.getMyLeft());
+        
+        System.out.print("[" + node.getMyString() + "] ");
+        
+        inOrderTraversal(node.getMyRight());
+    }
+    
+
+    //Creates graphs from instructions given in a file
+    public static int createGraph(String fileName) throws IOException {
+        long totalLines = 0;
+        File file = new File(fileName);
+        BufferedReader input = null;
+        String line;
+        String nextLine;
+        try {
+            //gets the path of the current file in order to get the # of lines
+            Path path = Paths.get(file.getName());
+
+            input = new BufferedReader(new FileReader(fileName)); 
+
+            totalLines = Files.lines(path).count();
+
+            //instantiate variables for graph and vertex objects. There are two Vertex objects in the case of adding edges.
+            Graph graph = null;
+            Vertex vert1 = null;
+            Vertex vert2 = null;
+
+            nextLine = input.readLine();
+
+            //Command parsing. Goes through each line and determines what command is being used based on strings.
+            for (int i = 0; i < totalLines; i++) {
+                line = nextLine;
+                nextLine = input.readLine();
+                if (line.split(" ")[0].compareTo("--") == 0) {
+                    //do nothing, ignore this line as it is a comment
+                } else if (line.split(" ")[0].compareTo("new") == 0) { //new graph
+                    //create a new graph object held by the graph variable
+                    graph = new Graph();
+
+                } else if (line.split(" ")[0].compareTo("add") == 0) { //enters add vertex/add edge tree
+                    if (line.split(" ")[1].compareTo("vertex") == 0) { //add vertex x
+                        //adds a new vertex to the graph, parsing the ID from the line given
+                        vert1 = new Vertex(Integer.parseInt(line.split(" ")[2]));
+                        graph.addVertex(vert1);
+                    } else if (line.split(" ")[1].compareTo("edge") == 0) { //add edge x - y
+                        //adds a new edge to the graph, based on the IDs parsed from the line
+                            //the verticies are found by searching the graph's verticies ArrayList for a Vertex that matches the ID given in the line at both positions
+                        vert1 = Search.linearSearchReturnVertex(graph.getVerticies(), Integer.parseInt(line.split(" ")[2]));
+                        vert2 = Search.linearSearchReturnVertex(graph.getVerticies(), Integer.parseInt(line.split(" ")[4]));
+                        
+                        graph.addEdge(vert1, vert2); //the verticies are now added as neighbors, forming an adjacency
+                    }
+                }
+                //final check to see if the next line is either empty or does not exist 
+                if (nextLine == null || nextLine.isEmpty()) { //empty space; commands for this graph are done, begin processing
+                    graph.printMatrix();
+                    graph.printAdjacencyList();
+                    
+                    System.out.print("Depth-First Traversal: ");
+                    graph.depthFirstSearch(graph.getVerticies().get(0));
+                    graph.resetProcessing();
+                    System.out.println();
+                    
+                    graph.breadthFirstSearch(graph.getVerticies().get(0));
+                    graph.resetProcessing();
+                }
+            }
+
+        } catch(FileNotFoundException ex) {
+            System.out.println("Failed to find file: " + file.getAbsolutePath());
+        } catch(IOException ex) {
+            System.out.println(ex.getMessage());
+        } catch(NullPointerException ex) {
+            System.out.println(ex.getMessage());
+        } catch(Exception ex) {
+            System.out.println("Something went wrong.");
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        } finally {
+            if (input != null) {
+                input.close();
+            }
+        }
+
+        return (int)totalLines;
+    }
+}
+\end{lstlisting}
+
+
+\end{document}
