@@ -4,7 +4,7 @@
 
 public class Edge {
     Vertex origin = null;
-    Vertex connection = null;
+    Vertex destination = null;
     int weight;
 
 
@@ -13,9 +13,9 @@ public class Edge {
     }
 
     //full constructor
-    public Edge(Vertex org, Vertex conn, int weight) {
+    public Edge(Vertex org, Vertex dest, int weight) {
         origin = org;
-        connection = conn;
+        destination = dest;
         this.weight = weight;
     }
 
@@ -29,7 +29,7 @@ public class Edge {
     }
 
     public Vertex getConnection() {
-        return this.connection;
+        return this.destination;
     }
 
     public void setWeight(int weight) {
@@ -40,7 +40,7 @@ public class Edge {
         this.origin = origin;
     }
 
-    public void setConnection(Vertex connection) {
-        this.connection = connection;
+    public void setConnection(Vertex destination) {
+        this.destination = destination;
     }
 }

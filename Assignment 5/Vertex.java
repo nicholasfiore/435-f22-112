@@ -8,7 +8,6 @@ public class Vertex {
     /* Data Fields */
     private int id;
     private boolean processed = false;
-    private ArrayList<Vertex> neighbors = new ArrayList<Vertex>();
 
     /* Constuctors */
     public Vertex() {
@@ -26,14 +25,6 @@ public class Vertex {
         return this.id;
     }
 
-    public Vertex getNeighbor(int index) {
-        return neighbors.get(index);
-    }
-
-    public int getNeighborSize() {
-        return neighbors.size();
-    }
-
     public boolean wasProcessed() {
         return this.processed;
     }
@@ -44,11 +35,5 @@ public class Vertex {
 
     public void setProcessed(boolean bool) {
         this.processed = bool;
-    }
-
-    /* Functions */
-    //adds an adjacent vertex as a neighbor to the neighbors ArrayList
-    public void addNeighbor(Vertex neighbor) {
-        this.neighbors.add(neighbor);
     }
 }
