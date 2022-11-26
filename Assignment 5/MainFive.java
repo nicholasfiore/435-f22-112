@@ -55,6 +55,7 @@ public class MainFive {
         return list;
     }
 
+    //takes in a file and performs a greedy algoritm to solve a fractional knapsack problem for all spices and knapsacks
     public static int fractionalKnapsackSpiceHeist(String fileName) throws IOException {
         long totalLines = 0;
         File file = new File(fileName);
@@ -90,7 +91,7 @@ public class MainFive {
                 line = nextLine;
                 nextLine = input.readLine();
                 if (line.split(" ")[0].compareTo("--") == 0 || line.isEmpty()) {
-                    //ignore line; it is a comment
+                    //ignore line; it is a comment or blank space
                 } else if (line.split(" ")[0].compareTo("spice") == 0) {
                     cmdLine = line.split(";"); //splits the current line based on ; (each line before a semicolon is a command)
 
@@ -115,8 +116,8 @@ public class MainFive {
                     Knapsacks.add(new Knapsack(cap));
                 }
 
-                //final check to see if the next line is either empty or does not exist 
-                if (nextLine == null) { //empty space; commands for this graph are done, begin processing
+                //final check to see if the end of the file was reached
+                if (nextLine == null) { //file has been parsed, begin processing
 
                 }
             }
@@ -138,6 +139,22 @@ public class MainFive {
         }
 
         return (int)totalLines;
+    }
+
+    //sorts a list of Spices based on their price per scoop
+    public static void spiceInsertionSort(ArrayList<Spice> list) {
+        //the sorting algorithm
+        for (int i = 1; i < list.size(); i++) {
+            Spice key = list.get(i);
+            int j;
+
+            for (j = i - 1; j >= 0 && key.getPricePerScoop() < list.get(j).getPricePerScoop(); j--) {
+                //arr[j + 1] = arr[j];
+                list.set(j + 1, list.get(j));
+            }
+            //arr[j + 1] = key;
+            list.set(j + 1, key);
+        }
     }
 
     //Creates graphs from instructions given in a file

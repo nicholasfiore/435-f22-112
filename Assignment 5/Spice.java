@@ -2,7 +2,8 @@ public class Spice {
     /* Data Fields */
     private String name = null;
     private double totPrice;
-    private double quantity;
+    private int quantity;
+    private double pricePerScoop; //determined when
 
     /* Constuctors */
 
@@ -10,10 +11,11 @@ public class Spice {
         //empty constuctor
     }
 
-    public Spice(String name, double price, double qty) {
+    public Spice(String name, double price, int qty) {
         this.name = name;
         totPrice = price;
         quantity = qty;
+        pricePerScoop = totPrice / (double)quantity;
     }
 
     /* Accessors/Mutators */
@@ -21,7 +23,7 @@ public class Spice {
         return name;
     }
 
-    public double getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
@@ -29,15 +31,27 @@ public class Spice {
         return totPrice;
     }
 
+    public double getPricePerScoop() {
+        return pricePerScoop;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setQuantity(double quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
+        recalculatePricePerScoop();
     }
 
     public void setTotPrice(double totPrice) {
         this.totPrice = totPrice;
+        recalculatePricePerScoop();
+    }
+
+    /* Functions */
+    //recalculates
+    public void recalculatePricePerScoop() {
+        pricePerScoop = totPrice / (double)quantity;
     }
 }
