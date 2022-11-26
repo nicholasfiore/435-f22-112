@@ -71,14 +71,15 @@ public class Graph {
 
 
         //Step 2: Relax all edges
-        for (int i = 0; i < this.getVerticies().size() - 1; i++) {
+        for (int i = 0; i < this.getVerticies().size(); i++) {
             for(int j = 0; j < this.getEdges().size(); j++) {
                 //relaxation step
-                Vertex edgeOrigin = this.edges.get(j).getOrigin();
+                Edge currEdge = this.edges.get(j);
+                Vertex edgeOrigin = currEdge.getOrigin();
                 int originIndex = Search.linearSearchReturnIndex(verticies, edgeOrigin.getId());
-                Vertex edgeDestination = this.edges.get(j).getConnection();
+                Vertex edgeDestination = currEdge.getConnection();
                 int destIndex = Search.linearSearchReturnIndex(verticies, edgeDestination.getId());
-                int weight = this.edges.get(j).getWeight();
+                int weight = currEdge.getWeight();
                 if (dist[originIndex] != Integer.MAX_VALUE && dist[originIndex] + weight < dist[destIndex]) {
                     dist[destIndex] = dist[originIndex] + weight;
                 }
@@ -87,16 +88,30 @@ public class Graph {
 
         //Step 3: Test for negative weight cycles
         for (int i = 0; i < this.getEdges().size(); i++) {
-            Vertex edgeOrigin = this.edges.get(i).getOrigin();
+            Edge currEdge = this.edges.get(i);
+            Vertex edgeOrigin = currEdge.getOrigin();
             int originIndex = Search.linearSearchReturnIndex(verticies, edgeOrigin.getId());
-            Vertex edgeDestination = this.edges.get(i).getConnection();
+            Vertex edgeDestination = currEdge.getConnection();
             int destIndex = Search.linearSearchReturnIndex(verticies, edgeDestination.getId());
-            int weight = this.edges.get(i).getWeight();
+            int weight = currEdge.getWeight();
 
-            if (dist[originIndex] > dist[destIndex] + weight)
+            if (dist[originIndex] != Integer.MAX_VALUE && dist[originIndex] + weight < dist[destIndex])
                 retVal = false;
         }
         
+        //Step 4: Printing
+        if (retVal) {
+            for (int i = 0; i < this.getVerticies().size(); i++) {
+                if (i != srcIndex) {
+                    System.out.println(verticies.get(srcIndex).getId() + " -> " + verticies.get(i).getId() + " cost is " + dist[i] + "; ");
+                }
+            }
+        } else {
+            System.out.println("There was no path found due to a negative loop.");
+        }
+
+        System.out.println();
+
         return retVal;
     }
 

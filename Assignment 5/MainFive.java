@@ -216,6 +216,8 @@ public class MainFive {
 
             nextLine = input.readLine();
 
+            int graphNum = 1;
+
             //Command parsing. Goes through each line and determines what command is being used based on strings.
             for (int i = 0; i < totalLines; i++) {
                 line = nextLine;
@@ -244,12 +246,9 @@ public class MainFive {
                 }
                 //final check to see if the next line is either empty or does not exist 
                 if (nextLine == null || nextLine.isEmpty()) { //empty space; commands for this graph are done, begin processing
-                    boolean pathFound = graph.singleSourceShortestPath(graph.getVerticies().get(0));
-                    if (!pathFound)
-                        System.out.println("There was no path found due to a negative loop.");
-                    else {
-
-                    }
+                    System.out.println("Graph " + graphNum + ":");
+                    graphNum++;
+                    graph.singleSourceShortestPath(graph.getVerticies().get(0));
                 }
             }
 
