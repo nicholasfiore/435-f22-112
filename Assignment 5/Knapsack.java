@@ -40,8 +40,9 @@ public class Knapsack {
     }
 
     /* Functions */
-    //adds a scoop to the sack
-    public void addScoop() {
+    //adds a scoop to the sack, including the value of that scoop
+    public void addScoop(Spice spice) {
         this.currVolume += 1;
+        this.value += spice.getPricePerScoop();   
     }
 }

@@ -17,8 +17,8 @@ public class MainFive {
 
         //createGraph("graphs2.txt");
 
+        System.out.println("Greedy Knapsack problem:");
         fractionalKnapsackSpiceHeist("spice.txt");
-
     }
 
     //takes a file name and a list and puts each line of the file into a String in an array
@@ -151,15 +151,30 @@ public class MainFive {
         int capacity = sack.getCapacity();
         int i = 0;
         //variables to store for printing later
-        String name = null;
+        ArrayList<Spice> stolenSpices = new ArrayList<>(); //keeps track of the spice piles that were placed into the sack
+        ArrayList<Integer> scoopList = new ArrayList<>(); //keeps track of how many scoops of each spice were taken. Indexes here are a 1:1 correlation to the Spice in stolenSpices
+
         while (i < spiceList.size() && sack.getCurrVolume() < capacity) {
-            name = spiceList.get(i).getName();
-            int remSpice = spiceList.get(i).getQuantity();
+            Spice currSpice = spiceList.get(i);
+            stolenSpices.add(currSpice);
+            int remSpice = currSpice.getQuantity();
+            int scoops = 0;
             while (remSpice > 0 && sack.getCurrVolume() < capacity) {
-                
+                sack.addScoop(currSpice);
+                remSpice -= 1;
+                scoops += 1;
             }
+            scoopList.add(scoops);
             i++;
         }
+
+        String prntStr = "";
+        System.out.print("A knapsack of capacity " + capacity + " is worth " + sack.getValue() + " quatloos and contains ");
+        for (i = 0; i < stolenSpices.size() - 1; i++) {
+            prntStr += scoopList.get(i) + " scoop(s) of " + stolenSpices.get(i).getName() + ", ";
+        }
+        prntStr += "and " + scoopList.get(i) + " scoop(s) of " + stolenSpices.get(i).getName() + ".";
+        System.out.println(prntStr);
     }
 
     //sorts a list of Spices based on their price per scoop
