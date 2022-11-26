@@ -15,7 +15,7 @@ public class MainFive {
         //variable to store comparisons 
         int[] compCounter = new int[1];
 
-        //createGraph("graphs2.txt");
+        createGraph("graphs2.txt");
 
         System.out.println("Greedy Knapsack problem:");
         fractionalKnapsackSpiceHeist("spice.txt");
@@ -220,6 +220,7 @@ public class MainFive {
             for (int i = 0; i < totalLines; i++) {
                 line = nextLine;
                 nextLine = input.readLine();
+                line = line.trim().replaceAll(" +", " "); //reformats the String so that parsing is easier
                 if (line.split(" ")[0].compareTo("--") == 0) {
                     //do nothing, ignore this line as it is a comment
                 } else if (line.split(" ")[0].compareTo("new") == 0) { //new graph
@@ -235,7 +236,7 @@ public class MainFive {
                         //adds a new edge to the graph, based on the IDs parsed from the line
                             //the verticies are found by searching the graph's verticies ArrayList for a Vertex that matches the ID given in the line at both positions
                         vert1 = Search.linearSearchReturnVertex(graph.getVerticies(), Integer.parseInt(line.split(" ")[2]));
-                        vert2 = Search.linearSearchReturnVertex(graph.getVerticies(), Integer.parseInt(line.split(" ")[4]));
+                        vert2 = Search.linearSearchReturnVertex(graph.getVerticies(), Integer.parseInt((line).split(" ")[4]));
                         weight = Integer.parseInt(line.split(" ")[5]);
 
                         graph.addEdge(vert1, vert2, weight); //the verticies are now added as neighbors, forming an adjacency
@@ -246,6 +247,9 @@ public class MainFive {
                     boolean pathFound = graph.singleSourceShortestPath(graph.getVerticies().get(0));
                     if (!pathFound)
                         System.out.println("There was no path found due to a negative loop.");
+                    else {
+
+                    }
                 }
             }
 

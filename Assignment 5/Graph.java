@@ -72,7 +72,7 @@ public class Graph {
 
         //Step 2: Relax all edges
         for (int i = 0; i < this.getVerticies().size() - 1; i++) {
-            for(int j = 0; j < this.getEdges().size(); i++) {
+            for(int j = 0; j < this.getEdges().size(); j++) {
                 //relaxation step
                 Vertex edgeOrigin = this.edges.get(j).getOrigin();
                 int originIndex = Search.linearSearchReturnIndex(verticies, edgeOrigin.getId());
