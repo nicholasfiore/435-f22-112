@@ -13,9 +13,9 @@ public class Spice {
 
     public Spice(String name, double price, int qty) {
         this.name = name;
-        totPrice = price;
-        quantity = qty;
-        pricePerScoop = totPrice / (double)quantity;
+        this.totPrice = price;
+        this.quantity = qty;
+        recalculatePricePerScoop();
     }
 
     /* Accessors/Mutators */
@@ -52,6 +52,6 @@ public class Spice {
     /* Functions */
     //recalculates
     public void recalculatePricePerScoop() {
-        pricePerScoop = totPrice / (double)quantity;
+        this.pricePerScoop = totPrice / (double)quantity;
     }
 }

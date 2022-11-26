@@ -15,7 +15,9 @@ public class MainFive {
         //variable to store comparisons 
         int[] compCounter = new int[1];
 
-        createGraph("graphs2.txt");
+        //createGraph("graphs2.txt");
+
+        fractionalKnapsackSpiceHeist("spice.txt");
 
     }
 
@@ -90,6 +92,7 @@ public class MainFive {
             for (int i = 0; i < totalLines; i++) {
                 line = nextLine;
                 nextLine = input.readLine();
+                line = line.trim().replaceAll(" +", " "); //reformats the String so that parsing is easier
                 if (line.split(" ")[0].compareTo("--") == 0 || line.isEmpty()) {
                     //ignore line; it is a comment or blank space
                 } else if (line.split(" ")[0].compareTo("spice") == 0) {
@@ -100,25 +103,27 @@ public class MainFive {
                     int qty = 0;
 
                     for (int j = 0; j < cmdLine.length; j++) {
-                        currCmd = cmdLine[j];
+                        currCmd = cmdLine[j].trim(); //ensures there are no leading spaces
                         if (currCmd.split(" ")[1].compareTo("name") == 0) {
-                            spiceName = currCmd.split(" ")[3].split(";")[0];
+                            spiceName = currCmd.substring(currCmd.lastIndexOf(" ")+1).split(";")[0];
                         } else if (currCmd.split(" ")[0].compareTo("total_price") == 0){
-                            totalPrice = Double.parseDouble(currCmd.split(" ")[2]);
+                            totalPrice = Double.parseDouble(currCmd.substring(currCmd.lastIndexOf(" ")+1).split(";")[0]);
                         } else if (currCmd.split(" ")[0].compareTo("qty") == 0){
-                            totalPrice = Integer.parseInt(currCmd.split(" ")[2]);
+                            qty = Integer.parseInt(currCmd.substring(currCmd.lastIndexOf(" ")+1).split(";")[0]);
                         }
                     }//end for
                     Spices.add(new Spice(spiceName, totalPrice, qty));
                 } else if (line.split(" ")[0].compareTo("knapsack") == 0) {
-                    String temp = line.split(" ")[3];
-                    int cap = Integer.parseInt(temp.split(";")[0]); //parses the capacity of the knapsack
+                    int cap = Integer.parseInt(line.substring(line.lastIndexOf(" ")+1).split(";")[0]); //parses the capacity of the knapsack
                     Knapsacks.add(new Knapsack(cap));
                 }
 
                 //final check to see if the end of the file was reached
                 if (nextLine == null) { //file has been parsed, begin processing
-
+                    spiceInsertionSort(Spices);
+                    for (int j = 0; j < Spices.size(); j++) {
+                        System.out.print(Spices.get(j).getPricePerScoop() + " ");
+                    }
                 }
             }
 
@@ -148,7 +153,7 @@ public class MainFive {
             Spice key = list.get(i);
             int j;
 
-            for (j = i - 1; j >= 0 && key.getPricePerScoop() < list.get(j).getPricePerScoop(); j--) {
+            for (j = i - 1; j >= 0 && key.getPricePerScoop() > list.get(j).getPricePerScoop(); j--) {
                 //arr[j + 1] = arr[j];
                 list.set(j + 1, list.get(j));
             }
