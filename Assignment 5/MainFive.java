@@ -63,6 +63,8 @@ public class MainFive {
         String nextLine;
         String currCmd; //keeps track of the current subcommand while parsing the file
 
+        String[] cmdLine = null; //used to keep track of the current line for spices by assigning the String.split() String array to it
+
         //lists to keep track of the Spices and the Knapsacks
         ArrayList<Spice> Spices = new ArrayList<Spice>();
         ArrayList<Knapsack> Knapsacks = new ArrayList<Knapsack>();
@@ -87,10 +89,26 @@ public class MainFive {
             for (int i = 0; i < totalLines; i++) {
                 line = nextLine;
                 nextLine = input.readLine();
-                if (line.split(" ")[0].compareTo("--") == 0) {
+                if (line.split(" ")[0].compareTo("--") == 0 || line.isEmpty()) {
                     //ignore line; it is a comment
                 } else if (line.split(" ")[0].compareTo("spice") == 0) {
+                    cmdLine = line.split(";"); //splits the current line based on ; (each line before a semicolon is a command)
 
+                    String spiceName = null; //these values are used to assign to the Spice that will be added
+                    double totalPrice = 0.0;
+                    int qty = 0;
+
+                    for (int j = 0; j < cmdLine.length; j++) {
+                        currCmd = cmdLine[j];
+                        if (currCmd.split(" ")[1].compareTo("name") == 0) {
+                            spiceName = currCmd.split(" ")[3].split(";")[0];
+                        } else if (currCmd.split(" ")[0].compareTo("total_price") == 0){
+                            totalPrice = Double.parseDouble(currCmd.split(" ")[2]);
+                        } else if (currCmd.split(" ")[0].compareTo("qty") == 0){
+                            totalPrice = Integer.parseInt(currCmd.split(" ")[2]);
+                        }
+                    }//end for
+                    Spices.add(new Spice(spiceName, totalPrice, qty));
                 } else if (line.split(" ")[0].compareTo("knapsack") == 0) {
                     String temp = line.split(" ")[3];
                     int cap = Integer.parseInt(temp.split(";")[0]); //parses the capacity of the knapsack
@@ -98,7 +116,7 @@ public class MainFive {
                 }
 
                 //final check to see if the next line is either empty or does not exist 
-                if (nextLine == null || nextLine.isEmpty()) { //empty space; commands for this graph are done, begin processing
+                if (nextLine == null) { //empty space; commands for this graph are done, begin processing
 
                 }
             }
