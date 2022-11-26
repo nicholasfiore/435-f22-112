@@ -14,7 +14,7 @@ public class MainFive {
         //variable to store comparisons 
         int[] compCounter = new int[1];
 
-        createGraph("graphs1.txt");
+        createGraph("graphs2.txt");
 
     }
 
@@ -60,6 +60,7 @@ public class MainFive {
         BufferedReader input = null;
         String line;
         String nextLine;
+        String currCmd; //keeps track of the current subcommand while parsing the file
         try {
             //gets the path of the current file in order to get the # of lines
             Path path = Paths.get(file.getName());
@@ -81,31 +82,14 @@ public class MainFive {
                 line = nextLine;
                 nextLine = input.readLine();
                 if (line.split(" ")[0].compareTo("--") == 0) {
-                    //do nothing, ignore this line as it is a comment
-                } else if (line.split(" ")[0].compareTo("new") == 0) { //new graph
-                    //create a new graph object held by the graph variable
-                    graph = new Graph();
-
-                } else if (line.split(" ")[0].compareTo("add") == 0) { //enters add vertex/add edge tree
-                    if (line.split(" ")[1].compareTo("vertex") == 0) { //add vertex x
-                        //adds a new vertex to the graph, parsing the ID from the line given
-                        vert1 = new Vertex(Integer.parseInt(line.split(" ")[2]));
-                        graph.addVertex(vert1);
-                    } else if (line.split(" ")[1].compareTo("edge") == 0) { //add edge x -> y with weight z
-                        //adds a new edge to the graph, based on the IDs parsed from the line
-                            //the verticies are found by searching the graph's verticies ArrayList for a Vertex that matches the ID given in the line at both positions
-                        vert1 = Search.linearSearchReturnVertex(graph.getVerticies(), Integer.parseInt(line.split(" ")[2]));
-                        vert2 = Search.linearSearchReturnVertex(graph.getVerticies(), Integer.parseInt(line.split(" ")[4]));
-                        weight = Integer.parseInt(line.split(" ")[5]);
-
-                        graph.addEdge(vert1, vert2, weight); //the verticies are now added as neighbors, forming an adjacency
-                    }
+                    //ignore line; it is a comment
+                } else if (line.split(" ")[0].compareTo("spice") == 0) {
+                    
                 }
+
                 //final check to see if the next line is either empty or does not exist 
                 if (nextLine == null || nextLine.isEmpty()) { //empty space; commands for this graph are done, begin processing
-                    boolean pathFound = graph.singleSourceShortestPath(graph.getVerticies().get(0));
-                    if (!pathFound)
-                        System.out.println("There was no path found due to a negative loop.");
+
                 }
             }
 
