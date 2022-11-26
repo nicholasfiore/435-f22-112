@@ -2,6 +2,7 @@ public class Knapsack {
     /* Data fields */
     private int capacity;
     private double currVolume;
+    private double value;
 
 
     /* Constuctors */
@@ -22,11 +23,25 @@ public class Knapsack {
         return currVolume;
     }
 
+    public double getValue() {
+        return value;
+    }
+
     public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
 
     public void setCurrVolume(double currVolume) {
         this.currVolume = currVolume;
+    }
+
+    public void setValue(double value) {
+        this.value = value;
+    }
+
+    /* Functions */
+    //adds a scoop to the sack
+    public void addScoop() {
+        this.currVolume += 1;
     }
 }

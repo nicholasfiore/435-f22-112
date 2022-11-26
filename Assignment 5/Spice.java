@@ -3,7 +3,7 @@ public class Spice {
     private String name = null;
     private double totPrice;
     private int quantity;
-    private double pricePerScoop; //determined when
+    private double pricePerScoop; //determined when the object is initialized
 
     /* Constuctors */
 
@@ -52,6 +52,6 @@ public class Spice {
     /* Functions */
     //recalculates
     public void recalculatePricePerScoop() {
-        this.pricePerScoop = totPrice / (double)quantity;
+        this.pricePerScoop = totPrice / quantity;
     }
 }

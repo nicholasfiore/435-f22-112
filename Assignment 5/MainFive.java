@@ -69,8 +69,8 @@ public class MainFive {
         String[] cmdLine = null; //used to keep track of the current line for spices by assigning the String.split() String array to it
 
         //lists to keep track of the Spices and the Knapsacks
-        ArrayList<Spice> Spices = new ArrayList<Spice>();
-        ArrayList<Knapsack> Knapsacks = new ArrayList<Knapsack>();
+        ArrayList<Spice> spices = new ArrayList<Spice>();
+        ArrayList<Knapsack> knapsacks = new ArrayList<Knapsack>();
 
         try {
             //gets the path of the current file in order to get the # of lines
@@ -112,17 +112,17 @@ public class MainFive {
                             qty = Integer.parseInt(currCmd.substring(currCmd.lastIndexOf(" ")+1).split(";")[0]);
                         }
                     }//end for
-                    Spices.add(new Spice(spiceName, totalPrice, qty));
+                    spices.add(new Spice(spiceName, totalPrice, qty));
                 } else if (line.split(" ")[0].compareTo("knapsack") == 0) {
                     int cap = Integer.parseInt(line.substring(line.lastIndexOf(" ")+1).split(";")[0]); //parses the capacity of the knapsack
-                    Knapsacks.add(new Knapsack(cap));
+                    knapsacks.add(new Knapsack(cap));
                 }
 
                 //final check to see if the end of the file was reached
                 if (nextLine == null) { //file has been parsed, begin processing
-                    spiceInsertionSort(Spices);
-                    for (int j = 0; j < Spices.size(); j++) {
-                        System.out.print(Spices.get(j).getPricePerScoop() + " ");
+                    spiceInsertionSort(spices);
+                    for(int j = 0; j < knapsacks.size(); j++) {
+                        greedyKnapsack(spices, knapsacks.get(j));
                     }
                 }
             }
@@ -144,6 +144,22 @@ public class MainFive {
         }
 
         return (int)totalLines;
+    }
+
+    //the greedy algorithm used by fractionalKnapsackSpiceHeist(). The algorithm assumes the list of spices is already in descending order in terms of price per scoop of spice, meaning the highest price per scoop spice is first
+    public static void greedyKnapsack(ArrayList<Spice> spiceList, Knapsack sack) {
+        int capacity = sack.getCapacity();
+        int i = 0;
+        //variables to store for printing later
+        String name = null;
+        while (i < spiceList.size() && sack.getCurrVolume() < capacity) {
+            name = spiceList.get(i).getName();
+            int remSpice = spiceList.get(i).getQuantity();
+            while (remSpice > 0 && sack.getCurrVolume() < capacity) {
+                
+            }
+            i++;
+        }
     }
 
     //sorts a list of Spices based on their price per scoop
