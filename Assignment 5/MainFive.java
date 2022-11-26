@@ -3,6 +3,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 /* 
  * The purpose of this program is to explore both graphs and the ways to traverse them, as well as create a binary tree to be used for
@@ -61,6 +62,11 @@ public class MainFive {
         String line;
         String nextLine;
         String currCmd; //keeps track of the current subcommand while parsing the file
+
+        //lists to keep track of the Spices and the Knapsacks
+        ArrayList<Spice> Spices = new ArrayList<Spice>();
+        ArrayList<Knapsack> Knapsacks = new ArrayList<Knapsack>();
+
         try {
             //gets the path of the current file in order to get the # of lines
             Path path = Paths.get(file.getName());
@@ -84,7 +90,11 @@ public class MainFive {
                 if (line.split(" ")[0].compareTo("--") == 0) {
                     //ignore line; it is a comment
                 } else if (line.split(" ")[0].compareTo("spice") == 0) {
-                    
+
+                } else if (line.split(" ")[0].compareTo("knapsack") == 0) {
+                    String temp = line.split(" ")[3];
+                    int cap = Integer.parseInt(temp.split(";")[0]); //parses the capacity of the knapsack
+                    Knapsacks.add(new Knapsack(cap));
                 }
 
                 //final check to see if the next line is either empty or does not exist 

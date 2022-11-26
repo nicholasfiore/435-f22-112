@@ -1,6 +1,6 @@
 public class Knapsack {
     /* Data fields */
-    private double capacity;
+    private int capacity;
     private double currVolume;
 
 
@@ -9,12 +9,12 @@ public class Knapsack {
         //default constructor
     }
 
-    public Knapsack(double cap) {
+    public Knapsack(int cap) {
         this.capacity = cap;
     }
 
     /* Accessors/Mutators */
-    public double getCapacity() {
+    public int getCapacity() {
         return capacity;
     }
 
@@ -22,7 +22,7 @@ public class Knapsack {
         return currVolume;
     }
 
-    public void setCapacity(double capacity) {
+    public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
 
