@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Hospital {
-    //private ArrayList<Resident> residentRank = null;
+    private ArrayList<Resident> residentRank = null;
 
     public Hospital() {
         residentRank = new ArrayList<>();
@@ -12,6 +12,6 @@ public class Hospital {
     }
 
     public void addResident(Resident resident) {
-        residentRank.add();
+        residentRank.add(resident);
     }
 }
