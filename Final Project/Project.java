@@ -4,9 +4,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-public class MainProject {
+public class Project {
     public static void main(String[] args) throws IOException {
-        
+        stableMatchingProblem("final-project-data.txt");
     }
 
     public static void stableMatchingProblem(String fileName) throws IOException {

@@ -51,8 +51,7 @@ public class Hospital {
     public void idToObject(Resident[] resList) {
         residentRank = new ArrayList<>();
         for (int i = 0; i < resRankInt.size(); i++) {
-            int key = residentRank.get(i).getId();
-            residentRank.add(linearSearch(resList, key));
+            residentRank.add(linearSearch(resList, resRankInt.get(i)));
         }
     }
     
