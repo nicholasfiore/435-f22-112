@@ -64,11 +64,19 @@ public class Project {
                     }
 
                     hosPos++; //increments the position in the array
-                }
-
-                //post file parsing method calls and other executions
-                
+                }   
             }
+            
+            //post file parsing method calls and other executions
+            //immediate execution of the conversion methods for both lists
+            for (int i = 0; i < hospitals.length; i++) {
+                hospitals[i].idToObject(residents);
+            }
+            for (int i = 0; i < residents.length; i++) {
+                residents[i].idToObject(hospitals);
+            }
+
+            
 
         } catch(FileNotFoundException ex) {
             System.out.println("Failed to find file: " + file.getAbsolutePath());
@@ -84,6 +92,13 @@ public class Project {
             if (input != null) {
                 input.close();
             }
+        }
+    }
+
+    //used in stableMatchingProblem()
+    public static void matchingAlgorithm(Hospital[] hosList, Resident[] resList) {
+        for (int i = 0; i < resList.length; i++) {
+            
         }
     }
 }

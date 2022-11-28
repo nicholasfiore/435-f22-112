@@ -40,9 +40,13 @@ public class Hospital {
         resRankInt.add(resident);
     }
 
+    public void assignResident(Resident resident) {
+        currResidents.add(resident);
+    }
+
     public boolean isFull() {
         boolean retVal = false;
-        if (currResidents.size() == capacity) 
+        if (currResidents.size() >= capacity) 
             retVal = true;
         return retVal;
     }
@@ -54,7 +58,18 @@ public class Hospital {
             residentRank.add(linearSearch(resList, resRankInt.get(i)));
         }
     }
-    
+
+    //checks to see if a particular resident is being considered by linearaly searching the currResidents list
+    public boolean isConsidering(Resident res) {
+        boolean retVal = false;
+        int i = 0;
+        while (i < currResidents.size() && currResidents.get(i) != res) {
+            i++;
+        }
+        if (currResidents.get(i) == res) 
+            retVal = true;
+        return retVal;
+    }
 
     //modified linear search designed to find a Resident based on an ID, and return the object itself
     public Resident linearSearch(Resident[] arr, int key) {
