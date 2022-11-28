@@ -48,23 +48,26 @@ public class MainProject {
                     hospitals = new Hospital[Integer.parseInt(lineArr[1])];
                     residents = new Resident[Integer.parseInt(lineArr[2])];
                 } else if (line.charAt(0) == 'r') {
-                    id = Character.getNumericValue(line.charAt(1));
+                    id = Integer.parseInt(lineArr[0].substring(1, lineArr[0].length() - 2));
                     residents[resPos] = new Resident(id);
                     for (int j = 1; j < lineArr.length; j++) {
-                        residents[resPos].addHospital(Character.getNumericValue(lineArr[j].charAt(1)));
+                        residents[resPos].addHospital(Integer.parseInt(lineArr[j].substring(1)));
                     }
 
                     resPos++; //increments the position in the array
                 } else if (line.charAt(0) == 'h') { //initializes the rankings of each resident. First index is first choice, last is last choice.
-                    id = Character.getNumericValue(line.charAt(1));
+                    id = Integer.parseInt(lineArr[0].substring(1, lineArr[0].length() - 2));
                     capacity = Integer.parseInt(lineArr[1]);
                     hospitals[hosPos] = new Hospital(id, capacity);
                     for (int j = 3; j < lineArr.length; j++) { //initializes the rankings of each hospital. First index is first choice, last is last choice.
-                        hospitals[hosPos].addResident(Character.getNumericValue(lineArr[j].charAt(1)));
+                        hospitals[hosPos].addResident(Integer.parseInt(lineArr[j].substring(1)));
                     }
 
                     hosPos++; //increments the position in the array
                 }
+
+                //post file parsing method calls and other executions
+                
             }
 
         } catch(FileNotFoundException ex) {
