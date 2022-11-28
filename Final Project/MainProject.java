@@ -14,7 +14,7 @@ public class MainProject {
         File file = new File(fileName);
         BufferedReader input = null;
         String line;
-        String nextLine;
+
 
         try {
             //gets the path of the current file in order to get the # of lines
@@ -25,15 +25,46 @@ public class MainProject {
             totalLines = Files.lines(path).count();
 
             //instantiate lists for hospitals and residents
-            //ArrayList<Hospital> hospitals = new ArrayList<>();
-            //ArrayList<Resident> residents = new ArrayList<>();
+            Hospital[] hospitals = null;
+            Resident[] residents = null;
 
-            nextLine = input.readLine();
+            String[] lineArr = null; //variable to hold the word array of the current line
+
+            //used when initializing resident/hospital objects
+            int id;
+            int capacity;
+            
+            //positions in the hospitals and residents arrays, respectively
+            int hosPos = 0;
+            int resPos = 0; 
 
             //Command parsing. Goes through each line and determines what command is being used based on strings.
             for (int i = 0; i < totalLines; i++) {
-                line = nextLine;
-                nextLine = input.readLine();
+                line = input.readLine();
+                lineArr = line.split(" ");
+                if (lineArr[0].compareTo("--") == 0) {
+                    //do nothing; it is a comment
+                } else if (lineArr[0].compareTo("Config:") == 0){ //initialize the array size of the total hospitals and residents
+                    hospitals = new Hospital[Integer.parseInt(lineArr[1])];
+                    residents = new Resident[Integer.parseInt(lineArr[2])];
+                } else if (line.charAt(0) == 'r') {
+                    id = Character.getNumericValue(line.charAt(1));
+                    residents[resPos] = new Resident(id);
+                    for (int j = 1; j < lineArr.length; j++) {
+                        residents[resPos].addHospital(Character.getNumericValue(lineArr[j].charAt(1)));
+                    }
+
+                    resPos++; //increments the position in the array
+                } else if (line.charAt(0) == 'h') { //initializes the rankings of each resident. First index is first choice, last is last choice.
+                    id = Character.getNumericValue(line.charAt(1));
+                    capacity = Integer.parseInt(lineArr[1]);
+                    hospitals[hosPos] = new Hospital(id, capacity);
+                    for (int j = 3; j < lineArr.length; j++) { //initializes the rankings of each hospital. First index is first choice, last is last choice.
+                        hospitals[hosPos].addResident(Character.getNumericValue(lineArr[j].charAt(1)));
+                    }
+
+                    hosPos++; //increments the position in the array
+                }
             }
 
         } catch(FileNotFoundException ex) {
