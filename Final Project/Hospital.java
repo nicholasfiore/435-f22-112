@@ -49,6 +49,22 @@ public class Hospital {
 
     //converts the arraylist of integer ids to a list of their corresponding Resident objects, given a list of residen objects. Uses a linear search to do so.
     public void idToObject(Resident[] resList) {
-        
+        residentRank = new ArrayList<>();
+        for (int i = 0; i < resRankInt.size(); i++) {
+            int key = residentRank.get(i).getId();
+            residentRank.add(linearSearch(resList, key));
+        }
+    }
+    
+
+    //modified linear search designed to find a Resident based on an ID, and return the object itself
+    public Resident linearSearch(Resident[] arr, int key) {
+        int i = 0;
+        while (i < arr.length && arr[i].getId() != key) {
+            i++;
+        }
+        if (i >= arr.length)
+            i = -1;
+        return arr[i];
     }
 }
