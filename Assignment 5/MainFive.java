@@ -14,7 +14,7 @@ public class MainFive {
     public static void main(String[] args) throws IOException {
         //variable to store comparisons 
         int[] compCounter = new int[1];
-
+        System.out.println("Graphs:");
         createGraph("graphs2.txt");
 
         System.out.println("Greedy Knapsack problem:");
