@@ -8,6 +8,7 @@ public class Resident {
 
     public Resident(int id) {
         this.id = id;
+        hosRankInt = new ArrayList<>();
         hospitalRank = new ArrayList<>();
         this.isFree = true;
     }

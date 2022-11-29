@@ -45,10 +45,10 @@ public class Project {
                 if (lineArr[0].compareTo("--") == 0) {
                     //do nothing; it is a comment
                 } else if (lineArr[0].compareTo("Config:") == 0){ //initialize the array size of the total hospitals and residents
-                    hospitals = new Hospital[Integer.parseInt(lineArr[1])];
-                    residents = new Resident[Integer.parseInt(lineArr[2])];
+                    hospitals = new Hospital[Integer.parseInt(lineArr[2])];
+                    residents = new Resident[Integer.parseInt(lineArr[1])];
                 } else if (line.charAt(0) == 'r') {
-                    id = Integer.parseInt(lineArr[0].substring(1, lineArr[0].length() - 2));
+                    id = Integer.parseInt(lineArr[0].substring(1, lineArr[0].length() - 1));
                     residents[resPos] = new Resident(id);
                     for (int j = 1; j < lineArr.length; j++) {
                         residents[resPos].addHospital(Integer.parseInt(lineArr[j].substring(1)));
@@ -56,7 +56,7 @@ public class Project {
 
                     resPos++; //increments the position in the array
                 } else if (line.charAt(0) == 'h') { //initializes the rankings of each resident. First index is first choice, last is last choice.
-                    id = Integer.parseInt(lineArr[0].substring(1, lineArr[0].length() - 2));
+                    id = Integer.parseInt(lineArr[0].substring(1, lineArr[0].length() - 1));
                     capacity = Integer.parseInt(lineArr[1]);
                     hospitals[hosPos] = new Hospital(id, capacity);
                     for (int j = 3; j < lineArr.length; j++) { //initializes the rankings of each hospital. First index is first choice, last is last choice.
@@ -132,7 +132,7 @@ public class Project {
             if (topChoice.getResidentRank().indexOf(res) < topChoice.getResidentRank().indexOf(currRes)) { //ensures that the new resident is ranked higher before bumping the old resident
                 //bump lower ranked resident
                 topChoice.bumpResident(currRes);
-                bumped.enqueue(new Node(currRes));
+                bumped.enqueue(new ResNode(currRes));
                 
                 //add new resident
                 topChoice.assignResident(res);
@@ -154,7 +154,7 @@ public class Project {
             }
             Resident removedRes = null;
             int removedResHospitalIndex;
-            while (topChoice.getResidentRank().size() > i) { //removes all elements in the list after index i
+            while (topChoice.getResidentRank().size() > i + 1) { //removes all elements in the list after index i
                 removedRes = topChoice.getResidentRank().remove(i + 1);
                 removedResHospitalIndex = removedRes.getHospitalRank().indexOf(topChoice);
                 if (removedResHospitalIndex != -1) //if the removed resident has the hospital in its rankings, remove it

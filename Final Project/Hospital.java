@@ -76,7 +76,7 @@ public class Hospital {
         while (i < consideredResidents.size() && consideredResidents.get(i) != res) {
             i++;
         }
-        if (consideredResidents.get(i) == res) 
+        if (i != consideredResidents.size() && consideredResidents.get(i) == res) 
             retVal = true;
         return retVal;
     }

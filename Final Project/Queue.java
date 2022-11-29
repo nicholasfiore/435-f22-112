@@ -5,8 +5,8 @@
  */
 public class Queue {
     /* Data Fields */
-    private Node myHead = null;
-    private Node myTail = null;
+    private ResNode myHead = null;
+    private ResNode myTail = null;
 
     /* Constructors */
     //Empty default constructor
@@ -14,26 +14,26 @@ public class Queue {
 
     /* Accessors and Mutators */
     //returns the pointer value of myHead
-    public Node getMyHead() {
+    public ResNode getMyHead() {
         return myHead;
     }
     //returns the pointer value of myTail
-    public Node getMyTail() {
+    public ResNode getMyTail() {
         return myTail;
     }
     //sets the value of myHead to a new Node object pointer
-    public void setMyHead(Node myHead) {
+    public void setMyHead(ResNode myHead) {
         this.myHead = myHead;
     }
     //sets the value of myTail to a new Node object pointer
-    public void setMyTail(Node myTail) {
+    public void setMyTail(ResNode myTail) {
         this.myTail = myTail;
     }
 
     /* Functions */
     //Adds a new Node object to the end of the queue. If the queue is empty, the new Node object becomes both the head and the tail of
     //the queue.
-    public void enqueue(Node newNode) {
+    public void enqueue(ResNode newNode) {
         if (this.isEmpty()) {
             this.setMyHead(newNode);
             this.setMyTail(newNode);
@@ -44,8 +44,8 @@ public class Queue {
     }
 
     //Removes the Node object at the front of the queue and returns it.
-    public Node dequeue() {
-        Node retVal = this.getMyHead();
+    public ResNode dequeue() {
+        ResNode retVal = this.getMyHead();
         this.setMyHead(retVal.getMyNext());
         return retVal;
     }
