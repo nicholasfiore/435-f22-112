@@ -20,8 +20,16 @@ public class Resident {
         this.id = id;
     }
 
-    public ArrayList<Integer> getHospitalRank() {
-        return hosRankInt;
+    public void setFree(boolean isFree) {
+        this.isFree = isFree;
+    }
+
+    public boolean isFree() {
+        return isFree;
+    }
+
+    public ArrayList<Hospital> getHospitalRank() {
+        return hospitalRank;
     }
 
     public void addHospital(int hospitalId) {

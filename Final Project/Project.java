@@ -76,6 +76,22 @@ public class Project {
                 residents[i].idToObject(hospitals);
             }
 
+            Queue bumpedQueue = new Queue(); //queue for any residents that get bumped from a hospital
+            for (int i = 0; i < residents.length; i++) {
+                while (!bumpedQueue.isEmpty()) {
+                    matchingAlgorithm(bumpedQueue, bumpedQueue.dequeue().getMyRes());
+                }
+                matchingAlgorithm(bumpedQueue, residents[i]);
+            }
+
+            System.out.println("Match:");
+            for (int i = 0; i < hospitals.length; i++) {
+                int hosId = hospitals[i].getId();
+                for (int j = 0; j < hospitals[i].getConsideredResidents().size(); j++) {
+                    int resId = hospitals[i].getConsideredResidents().get(j).getId();
+                    System.out.println("(r" + resId + ", h" + hosId + ")");
+                }
+            }
             
 
         } catch(FileNotFoundException ex) {
@@ -96,9 +112,54 @@ public class Project {
     }
 
     //used in stableMatchingProblem()
-    public static void matchingAlgorithm(Hospital[] hosList, Resident[] resList) {
-        for (int i = 0; i < resList.length; i++) {
-            
+    public static void matchingAlgorithm(Queue bumped, Resident res) {
+        Hospital topChoice = res.getHospitalRank().get(0); //returns the current top available choice of the resident
+        //initial addition
+        if (!topChoice.isFull()) {
+            topChoice.assignResident(res);
+            res.setFree(false);
+        } else {
+            int i = topChoice.getResidentRank().size() - 1;
+            Resident currRes = null;
+            boolean resFound = false;
+            while (i >= 0 && !resFound) {
+                currRes = topChoice.getResidentRank().get(i);
+                if (topChoice.isConsidering(currRes))    
+                    resFound = true;
+                else
+                    i--;
+            }
+            if (topChoice.getResidentRank().indexOf(res) < topChoice.getResidentRank().indexOf(currRes)) { //ensures that the new resident is ranked higher before bumping the old resident
+                //bump lower ranked resident
+                topChoice.bumpResident(currRes);
+                bumped.enqueue(new Node(currRes));
+                
+                //add new resident
+                topChoice.assignResident(res);
+                res.setFree(false);
+            }
+        }
+
+        //post check. If a hospital was just filled up, all residents after its last ranked resident being considered are dropped from the running.
+        if(topChoice.isFull()) {
+            int i = topChoice.getResidentRank().size() - 1;
+            Resident currRes = null;
+            boolean resFound = false;
+            while (i >= 0 && !resFound) {
+                currRes = topChoice.getResidentRank().get(i);
+                if (topChoice.isConsidering(currRes))    
+                    resFound = true;
+                else
+                    i--;
+            }
+            Resident removedRes = null;
+            int removedResHospitalIndex;
+            while (topChoice.getResidentRank().size() > i) { //removes all elements in the list after index i
+                removedRes = topChoice.getResidentRank().remove(i + 1);
+                removedResHospitalIndex = removedRes.getHospitalRank().indexOf(topChoice);
+                if (removedResHospitalIndex != -1) //if the removed resident has the hospital in its rankings, remove it
+                    removedRes.getHospitalRank().remove(removedResHospitalIndex);
+            }
         }
     }
 }

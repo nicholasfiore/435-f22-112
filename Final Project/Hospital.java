@@ -5,7 +5,7 @@ public class Hospital {
     private int id;
     private ArrayList<Integer> resRankInt = null; //specifically used while parsing. After the file is fully parsed, converted into the Resident ArrayList
     private ArrayList<Resident> residentRank = null;
-    private ArrayList<Resident> currResidents = null;
+    private ArrayList<Resident> consideredResidents = null;
     private int capacity;
     
 
@@ -13,11 +13,15 @@ public class Hospital {
         this.id = id;
         this.capacity = capacity;
         resRankInt = new ArrayList<>();
-        currResidents = new ArrayList<>();
+        consideredResidents = new ArrayList<>();
     }
 
-    public ArrayList<Integer> getResidentRank() {
-        return resRankInt;
+    public ArrayList<Resident> getResidentRank() {
+        return residentRank;
+    }
+
+    public ArrayList<Resident> getConsideredResidents() {
+        return consideredResidents;
     }
 
     public int getId() {
@@ -40,13 +44,19 @@ public class Hospital {
         resRankInt.add(resident);
     }
 
+    //assigns a resident tentatively to be considered by the hospital
     public void assignResident(Resident resident) {
-        currResidents.add(resident);
+        consideredResidents.add(resident);
+    }
+
+    //bumps a considered resident from consideration
+    public void bumpResident(Resident resident) {
+        consideredResidents.remove(resident);
     }
 
     public boolean isFull() {
         boolean retVal = false;
-        if (currResidents.size() >= capacity) 
+        if (consideredResidents.size() >= capacity) 
             retVal = true;
         return retVal;
     }
@@ -59,14 +69,14 @@ public class Hospital {
         }
     }
 
-    //checks to see if a particular resident is being considered by linearaly searching the currResidents list
+    //checks to see if a particular resident is being considered by linearaly searching the consideredResidents list
     public boolean isConsidering(Resident res) {
         boolean retVal = false;
         int i = 0;
-        while (i < currResidents.size() && currResidents.get(i) != res) {
+        while (i < consideredResidents.size() && consideredResidents.get(i) != res) {
             i++;
         }
-        if (currResidents.get(i) == res) 
+        if (consideredResidents.get(i) == res) 
             retVal = true;
         return retVal;
     }
