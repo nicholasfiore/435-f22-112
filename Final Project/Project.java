@@ -85,14 +85,20 @@ public class Project {
             }
 
             System.out.println("Match:");
-            for (int i = 0; i < hospitals.length; i++) {
-                int hosId = hospitals[i].getId();
-                for (int j = 0; j < hospitals[i].getConsideredResidents().size(); j++) {
-                    int resId = hospitals[i].getConsideredResidents().get(j).getId();
-                    System.out.println("(r" + resId + ", h" + hosId + ")");
+            for (int i = 0; i < hospitals.length; i++) { //adds all hospitals to their resident's matchedHospital member
+                Hospital currHos = hospitals[i];
+                Resident currRes;
+                for (int j = 0; j < currHos.getConsideredResidents().size(); j++) {
+                    currRes = currHos.getConsideredResidents().get(j);
+                    currRes.setMatchedHospital(currHos);
                 }
             }
-            
+
+            for (int i = 0; i < residents.length; i++) {
+                int resId = residents[i].getId();
+                int hosId = residents[i].getMatchedHospital().getId();
+                System.out.println("(r" + resId + ", h" + hosId + ")");
+            }
 
         } catch(FileNotFoundException ex) {
             System.out.println("Failed to find file: " + file.getAbsolutePath());

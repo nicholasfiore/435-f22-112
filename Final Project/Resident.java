@@ -4,6 +4,7 @@ public class Resident {
     private int id;
     private ArrayList<Integer> hosRankInt = null;
     private ArrayList<Hospital> hospitalRank = null;
+    private Hospital matchedHospital = null; //allows the matches to be printed in order based on residents rather than hospital. Only initialized after stability is reached.
     private boolean isFree;
 
     public Resident(int id) {
@@ -35,6 +36,14 @@ public class Resident {
 
     public void addHospital(int hospitalId) {
         hosRankInt.add(hospitalId);
+    }
+
+    public Hospital getMatchedHospital() {
+        return matchedHospital;
+    }
+
+    public void setMatchedHospital(Hospital matchedHospital) {
+        this.matchedHospital = matchedHospital;
     }
 
     //converts the arraylist of integer ids to a list of their corresponding Resident objects, given a list of residen objects. Uses a linear search to do so.
