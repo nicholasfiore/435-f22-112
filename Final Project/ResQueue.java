@@ -3,14 +3,14 @@
  * enqueue, dequeue, and isEmpty. Queues use the Node class as entities within the queue object, and keep track of both the beginning and
  * the end of the queue.
  */
-public class Queue {
+public class ResQueue {
     /* Data Fields */
     private ResNode myHead = null;
     private ResNode myTail = null;
 
     /* Constructors */
     //Empty default constructor
-    public Queue() { /* Default Constuctor */ }
+    public ResQueue() { /* Default Constuctor */ }
 
     /* Accessors and Mutators */
     //returns the pointer value of myHead
