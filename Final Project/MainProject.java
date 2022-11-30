@@ -3,7 +3,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class Project {
+public class MainProject {
     public static void main(String[] args) throws IOException {
         stableMatchingProblem("final-project-data.txt");
         System.out.println();
