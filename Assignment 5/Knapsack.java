@@ -1,3 +1,7 @@
+/*
+ * A knapsack object for use in the fractional knapsack problem. Has a capcity, and maintains its current volume and the value of
+ * that volume.
+ */
 public class Knapsack {
     /* Data fields */
     private int capacity;

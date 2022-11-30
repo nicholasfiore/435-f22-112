@@ -1,5 +1,6 @@
 /*
- * 
+ * An object to represent a weighted edge in a graph. A weighted edge can only have one direction, starting rom the origin
+ * and going to the destination.
  */
 
 public class Edge {

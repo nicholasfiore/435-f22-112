@@ -1,3 +1,9 @@
+/*
+ * Spice to be used in the fractional knapsack problem using a greedy algorithm. Spice is the object being added to the knapsacks.
+ * Spice has a quantity measured in scoops, which is the smallest fraction that the spice can be separated into. The spice also has 
+ * a name and a total value, which is used to calculate its price per scoop.
+ */
+
 public class Spice {
     /* Data Fields */
     private String name = null;

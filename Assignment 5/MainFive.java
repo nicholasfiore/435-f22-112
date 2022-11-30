@@ -6,8 +6,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 /* 
- * The purpose of this program is to explore both graphs and the ways to traverse them, as well as create a binary tree to be used for
- * the purpose of searching, similar to a binary search.
+ * This program is used to explore weighted graphs and pathfinding within them using the Bellman-Ford Single-Source Shortest Path
+ * algorithm, as well as explore the fractional knapsack problem using a greedy algorithm.
  */
 
 public class MainFive {
