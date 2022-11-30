@@ -2,7 +2,6 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 
 public class Project {
     public static void main(String[] args) throws IOException {
@@ -16,7 +15,6 @@ public class Project {
         File file = new File(fileName);
         BufferedReader input = null;
         String line;
-
 
         try {
             //gets the path of the current file in order to get the # of lines

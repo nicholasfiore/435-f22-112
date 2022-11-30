@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 /*
  * Vertex objects to be used with a Graph. These give weights to edges in one direction, creating a directed graph.
  */
@@ -8,6 +6,7 @@ public class Vertex {
     /* Data Fields */
     private int id;
     private boolean processed = false;
+    private Vertex predecessor = null; //keeps track of the path retroactively
 
     /* Constuctors */
     public Vertex() {
@@ -29,11 +28,19 @@ public class Vertex {
         return this.processed;
     }
 
+    public Vertex getPredecessor() {
+        return predecessor;
+    }
+
     public void setId(int newId) {
         this.id = newId;
     }
 
     public void setProcessed(boolean bool) {
         this.processed = bool;
+    }
+
+    public void setPredecessor(Vertex predecessor) {
+        this.predecessor = predecessor;
     }
 }

@@ -80,6 +80,7 @@ public class Graph {
                 int weight = currEdge.getWeight();
                 if (dist[originIndex] != Integer.MAX_VALUE && dist[originIndex] + weight < dist[destIndex]) {
                     dist[destIndex] = dist[originIndex] + weight;
+                    edgeDestination.setPredecessor(edgeOrigin);
                 }
             }
         }
@@ -98,10 +99,27 @@ public class Graph {
         }
         
         //Step 4: Printing
+        VertStack pathStack = null;
+        Vertex currVert = null;
         if (retVal) {
             for (int i = 0; i < this.getVerticies().size(); i++) {
                 if (i != srcIndex) {
-                    System.out.println(verticies.get(srcIndex).getId() + " -> " + verticies.get(i).getId() + " cost is " + dist[i] + "; ");
+                    System.out.print(verticies.get(srcIndex).getId() + " --> " + verticies.get(i).getId() + " cost is " + dist[i] + "; ");
+                    pathStack = new VertStack();
+                    currVert = verticies.get(i);
+                    while (currVert.getPredecessor() != null) { //pushes the reverse path into the stack
+                        pathStack.push(new VertNode(currVert));
+                        currVert = currVert.getPredecessor();
+                    }
+
+                    System.out.print("path: " + verticies.get(srcIndex).getId() + " --> ");
+                    while (!pathStack.isEmpty()) { //pops the in-order path from the stack and prints with formatting
+                        System.out.print(pathStack.pop().getMyVertex().getId());
+                        if (!pathStack.isEmpty()) {
+                            System.out.print(" --> ");
+                        }
+                    }
+                    System.out.println(); //line break
                 }
             }
         } else {
