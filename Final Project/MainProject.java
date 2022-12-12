@@ -3,6 +3,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+/* 
+ * Main project. Provides (potential) solutions to two versions of the Residents and Hospitals variation of the Stable Marriage/Stable Matching problem
+ * First version is the normal version, with ranked choices for both residents and hospitals. Second version has no ranking from hospitals, and is
+ * dubiously stable.
+ */
+
 public class MainProject {
     public static void main(String[] args) throws IOException {
         stableMatchingProblem("final-project-data.txt");
@@ -10,6 +16,9 @@ public class MainProject {
         stableMatchingProblemNoHospitalRank("final-project-data-no-hospital-rank.txt");
     }
 
+    /*
+     * normal stable-matching version. This method handles file parsing for set up, as well as calling the actual algorithm that performs the stable matches.
+     */
     public static void stableMatchingProblem(String fileName) throws IOException {
         long totalLines = 0;
         File file = new File(fileName);
@@ -117,14 +126,14 @@ public class MainProject {
         }
     }
 
-    //used in stableMatchingProblem()
+    //used in stableMatchingProblem(). Is the actual algorithm used to determine the stable matches.
     public static void matchingAlgorithm(ResQueue bumped, Resident res) {
         Hospital topChoice = res.getHospitalRank().get(0); //returns the current top available choice of the resident
         //initial addition
-        if (!topChoice.isFull()) {
+        if (!topChoice.isFull()) { //if the hospital is not full, the resident can be freely added.
             topChoice.assignResident(res);
             res.setFree(false);
-        } else {
+        } else { //if it is full, the lowest ranked resident currently being considered by the hospital is bumped for the new resident
             int i = topChoice.getResidentRank().size() - 1;
             Resident currRes = null;
             boolean resFound = false;
@@ -169,6 +178,7 @@ public class MainProject {
         }
     }
 
+    /* version of the problem using no hospital rank */
     public static void stableMatchingProblemNoHospitalRank(String fileName) throws IOException {
         long totalLines = 0;
         File file = new File(fileName);
@@ -274,6 +284,7 @@ public class MainProject {
         }
     }
 
+
     public static void matchingAlgorithmNoHospitalRank(ResQueue bumped, Resident res, Resident[] residents) {
         Hospital topChoice = res.getHospitalRank().get(0); //returns the current top available choice of the resident
         //initial addition
@@ -284,7 +295,7 @@ public class MainProject {
             bumped.enqueue(new ResNode(res));
         }
 
-        //post check. If a hospital was just filled up, all residents after its last ranked resident being considered are dropped from the running.
+        //post check. If a hospital was just filled up, all residents after its last ranked resident being considered are dropped from the running, since there is no way to bump a resident.
         if(topChoice.isFull()) {
             
             int hosIndex;

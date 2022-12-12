@@ -1,5 +1,10 @@
 import java.util.ArrayList;
 
+/*
+ * A class to represent a Resident in the resident-hospital variation of the stable matching problem. Contains an ID, an arraylist of integer IDs that represent hospital ranks, and a boolean value
+ * to represent whether or not the resident is free (not assigned a hospital). Converts the integer arraylist to an arraylist of Hospital objects based on ID, maintaining the same order. Also is
+ * assigned a matched hospital once provisional assignment is finalized and no resident is free.
+ */
 public class Resident {
     private int id;
     private ArrayList<Integer> hosRankInt = null;
@@ -7,6 +12,7 @@ public class Resident {
     private Hospital matchedHospital = null; //allows the matches to be printed in order based on residents rather than hospital. Only initialized after stability is reached.
     private boolean isFree;
 
+    //constructor
     public Resident(int id) {
         this.id = id;
         hosRankInt = new ArrayList<>();
@@ -14,6 +20,7 @@ public class Resident {
         this.isFree = true;
     }
 
+    /* Accesors & Mutators */
     public int getId() {
         return id;
     }
@@ -46,6 +53,7 @@ public class Resident {
         this.matchedHospital = matchedHospital;
     }
 
+    /* Functions */
     //converts the arraylist of integer ids to a list of their corresponding Resident objects, given a list of residen objects. Uses a linear search to do so.
     public void idToObject(Hospital[] hosList) {
         hospitalRank = new ArrayList<>();
